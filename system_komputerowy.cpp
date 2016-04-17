@@ -31,7 +31,10 @@ SystemKomputerowy::~SystemKomputerowy()
   delete io_[i];
  io_.clear();
  delete kolejka_zdarzen_;
-
+ delete kolejki_k_[0];
+ delete kolejki_k_[1];
+ delete[] kolejki_k_;
+ delete kolejka_zdarzen_;
 }
 
 double SystemKomputerowy::CzasZdarzenia()
