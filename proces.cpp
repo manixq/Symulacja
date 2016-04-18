@@ -2,14 +2,14 @@
 #include <cstdio>
 #include <cstdlib>
 
-
 Proces::Proces():
  to_(0),
  tpio_(0),
+ tpw_(0),
+ tpo_(0),
  zadanie_dostepu_(0),
  priorytet_(0)
 {
- tpw_ = rand() % 50 + 1;
  printf("[SYSTEM]: stworzono Proces\n");
 }
 

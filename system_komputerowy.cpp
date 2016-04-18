@@ -11,8 +11,13 @@ SystemKomputerowy::SystemKomputerowy()
  kolejki_k_ = new SJF*[2];
  kolejki_k_[0] = kolejka_k1_;
  kolejki_k_[1] = kolejka_k2_;
+ //Generator Multiplikatywny
+ m = 2147483647;
+ a = 16807;
+ X0 = 127;
  //nie wiedzialem jaki zakres, narazie tak jest
- double  TPG = static_cast<double>(30 - 1) * (static_cast<double>(rand()) / static_cast<double>(RAND_MAX)) + 1;
+ double  TPG = static_cast<double>(X0%30+1);
+ X0 = (X0*a) % m;
  kolejka_zdarzen_->DodajZdarzenie(NOWY_PROCES, TPG, nullptr);
  for(int i = 0; i < kLiczbaProcesorow_; i++)
   procesory_.push_back(new Procesor());
@@ -62,7 +67,8 @@ bool SystemKomputerowy::WolnyProcesor()
 void SystemKomputerowy::DodajProces()
 {
  Proces* ptr_proces = new Proces();
- double  TPG = static_cast<double>(30 - 1) * (static_cast<double>(rand()) / static_cast<double>(RAND_MAX)) + 1;//rand() % 20 + 1;
+ ptr_proces->set_tpw(new_rand() % 50 + 1);
+ double  TPG = static_cast<double>(30 - 1) * (static_cast<double>(new_rand()) / static_cast<double>(m)) + 1;
  kolejka_k1_->DodajProces(ptr_proces);
  kolejka_zdarzen_->DodajZdarzenie(NOWY_PROCES, TPG, nullptr);
  printf("[SYSTEM]: nowe zdarzenie - czas: %f, %s\n", TPG, "NOWY_PROCES");
@@ -77,7 +83,7 @@ void SystemKomputerowy::PrzydzielProcesor(int x)
  int k = 0;
  flag = true;
  k = 0;
- int i = rand() % KolejkaK()[x]->Wielkosc();
+ int i = new_rand() % KolejkaK()[x]->Wielkosc();
  ptr = KolejkaK()[x]->WezProces(i);
  KolejkaK()[x]->UsunProces(i);
  while (k < kLiczbaProcesorow_)
@@ -86,11 +92,11 @@ void SystemKomputerowy::PrzydzielProcesor(int x)
   {
    procesory_[k]->Przydziel(ptr);
    flag = false;
-   czas = rand() % ptr->get_tpw();
+   czas = new_rand() % ptr->get_tpw();
    ptr->set_tpio(czas);
    if (czas != 0)
    {
-    ptr->set_tpo(rand() % 10 + 1);
+    ptr->set_tpo(new_rand() % 10 + 1);
     ptr->set_zadanie_dostepu(true);
     kolejka_zdarzen_->DodajZdarzenie(PROSBA_DOSTEPU_IO, czas, ptr);
     printf("[SYSTEM]: nowe zdarzenie - czas: %d, %s\n", czas, "PROSBA_DOSTEPU_IO");
@@ -152,8 +158,8 @@ void SystemKomputerowy::ZwolnijProcesor(Proces* x)
 
 void SystemKomputerowy::PrydzielIO(Proces* proces)
 {
- int x = rand() % kLiczbaIO_;
- int y = rand() % 10 + 1;
+ int x = new_rand() % kLiczbaIO_;
+ int y = new_rand() % 10 + 1;
  proces->set_tpo(y);
  proces->set_priorytet(-y);
  if (io_[x]->Wolny())
@@ -215,6 +221,12 @@ void SystemKomputerowy::Zabij(Proces* proces)
  }
  delete proces;
  printf("[SYSTEM]: Proces zostal usuniety z systemu\n");
+}
+
+int64_t SystemKomputerowy::new_rand()
+{
+ X0 = (a * X0) % m;
+ return X0;
 }
 
 Proces* SystemKomputerowy::ProcesZdarzenia()

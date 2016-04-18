@@ -5,7 +5,6 @@
 #include "io.h"
 
 
-
 //gromadzi wszystkie pozostale elementy systemu
 //Przyklad uzycia: SystemKomputerowy sys();
 class SystemKomputerowy
@@ -34,6 +33,8 @@ public:
  void UsunZdarzenie();
  //zwalnia i USUWA proces z systemu
  void Zabij(Proces* proces);
+ //Generator Multiplikatywny
+ int64_t new_rand();
  //zwraca proces dotyczacy aktualnego zdarzenia
  Proces* ProcesZdarzenia();
  //zwraca tablice w ktorej umieszamy nasze kolejki k1 i k2
@@ -54,6 +55,9 @@ private:
  SJF** kolejki_k_;
  KolejkaZdarzen* kolejka_zdarzen_;
  SJF* kolejka_k2_;
- 
+ //jadro generatora, seed
+ int64_t X0;
+ int64_t m;
+ int64_t a;
 };
 #endif
