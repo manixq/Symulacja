@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="io.h" />
     <ClInclude Include="kolejka.h" />
+    <ClInclude Include="moj_random.h" />
     <ClInclude Include="proces.h" />
     <ClInclude Include="procesor.h" />
     <ClInclude Include="system_komputerowy.h" />
@@ -29,6 +30,7 @@
     <ClCompile Include="io.cpp" />
     <ClCompile Include="kolejka.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="moj_random.cpp" />
     <ClCompile Include="proces.cpp" />
     <ClCompile Include="procesor.cpp" />
     <ClCompile Include="system_komputerowy.cpp" />

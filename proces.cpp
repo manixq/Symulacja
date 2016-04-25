@@ -1,6 +1,5 @@
 #include "proces.h"
 #include <cstdio>
-#include <cstdlib>
 
 Proces::Proces():
  to_(0),
