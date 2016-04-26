@@ -1,9 +1,11 @@
 #include "system_komputerowy.h"
 #include <ctime>
-
+#include "moj_random.h"
 
 int main()
 {
+ Random r(127);
+ r.test();
  Proces* ptr_proces;
  srand(time(nullptr));
  double TPG = rand()%100+1;
