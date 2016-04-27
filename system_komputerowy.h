@@ -59,5 +59,19 @@ private:
  int64_t X0;
  int64_t m;
  int64_t a;
+ //liczba zakonczonych procesow
+ int proc_killed_;
+ //licba zgloszonych do io
+ int io_call_;
+ //czas dzialania systemu
+ double caly_czas_;
+ //czas wykorzystywania procesora
+ double zuzycie_[2];
+ //czas miedzy zgloszeniem procesu do systemu a jego smiercia
+ double czas_przetwarzania_;
+ //czas miedzy zgloszeniem io a odpowiedzia
+ double czas_odpowiedzi_;
+ //laczny czas oczekiwania  w kolejce
+ double czas_czekania_;
 };
 #endif

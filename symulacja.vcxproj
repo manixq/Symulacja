@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="informator.h" />
     <ClInclude Include="io.h" />
     <ClInclude Include="kolejka.h" />
     <ClInclude Include="moj_random.h" />
@@ -28,7 +27,6 @@
     <ClInclude Include="system_komputerowy.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="informator.cpp" />
     <ClCompile Include="io.cpp" />
     <ClCompile Include="kolejka.cpp" />
     <ClCompile Include="main.cpp" />

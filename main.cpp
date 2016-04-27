@@ -10,6 +10,7 @@ int main()
  srand(time(nullptr));
  double TPG = rand()%100+1;
  bool flaga=false;
+ int tick = 1000;
  SystemKomputerowy moj_system;
  printf("\n*******************************************************************\n");
  do
@@ -22,6 +23,7 @@ int main()
    if (moj_system.RodzajZdarzenia() == NOWY_PROCES && moj_system.CzasZdarzenia() == 0)
    {
     moj_system.UsunZdarzenie();
+    if(tick >=0)
     moj_system.DodajProces();
     flaga = true;
    }
@@ -75,11 +77,11 @@ int main()
     }
    }
 
-  
+   tick--;
 
  //tryb graficzy - step by step
   moj_system.GUI();
-  std::system("Pause");
+ // std::system("Pause");
  } while (flaga);
  std::system("Pause");
 }

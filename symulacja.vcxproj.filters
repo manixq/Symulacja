@@ -33,9 +33,6 @@
     <ClInclude Include="moj_random.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="informator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="io.cpp">
@@ -57,9 +54,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="moj_random.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="informator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

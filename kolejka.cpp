@@ -154,7 +154,9 @@ KolejkaZdarzen::~KolejkaZdarzen()
 
 double KolejkaZdarzen::WezCzas()
 {
- return head_zdarzenie_->nastepny_->czas_;
+ if(head_zdarzenie_->nastepny_)
+  return head_zdarzenie_->nastepny_->czas_;
+ return 0;
 }
 
 Rodzaj_Zdarzenia KolejkaZdarzen::WezRodzaj()
