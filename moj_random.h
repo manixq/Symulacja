@@ -16,8 +16,8 @@ private:
  int64_t X0_;
  int64_t m_;
  int64_t a_; 
- //L_ musi byc takie by rozklad wykladniczy nie generowal procesow czesciej niz co 50ms
- int64_t L_;
+ //L_ musi byc takie by procesy nie czekaly dluzej niz 50ms
+ double L_;
 };
 #endif
 
