@@ -8,7 +8,6 @@ public:
  Random(int64_t kernel);//TODO kernel 127 
  int64_t Normal();
  int64_t Wykladn();
- 
  void test();//funkcja do testow - koniecznie skasowac <-------------------------------------------
 
 private:

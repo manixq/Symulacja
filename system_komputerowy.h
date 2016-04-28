@@ -3,7 +3,7 @@
 #include <vector>
 #include "procesor.h"
 #include "io.h"
-
+#include "moj_random.h"
 
 //gromadzi wszystkie pozostale elementy systemu
 //Przyklad uzycia: SystemKomputerowy sys();
@@ -33,14 +33,13 @@ public:
  void UsunZdarzenie();
  //zwalnia i USUWA proces z systemu
  void Zabij(Proces* proces);
- //Generator Multiplikatywny
- int64_t new_rand();
  //zwraca proces dotyczacy aktualnego zdarzenia
  Proces* ProcesZdarzenia();
  //zwraca tablice w ktorej umieszamy nasze kolejki k1 i k2
  SJF** KolejkaK();
  //zwraca aktualny czas zdarzenia
  double CzasZdarzenia();
+ double OutL();
  //zwraca rodzaj aktualnego zdarzenia
  Rodzaj_Zdarzenia RodzajZdarzenia();
  //zwraca wartosc true jesli procesor jest w tej chwili wolny
@@ -55,10 +54,7 @@ private:
  SJF** kolejki_k_;
  KolejkaZdarzen* kolejka_zdarzen_;
  SJF* kolejka_k2_;
- //jadro generatora, seed
- int64_t X0;
- int64_t m;
- int64_t a;
+ Random* r;
  //liczba zakonczonych procesow
  int proc_killed_;
  //licba zgloszonych do io

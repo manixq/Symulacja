@@ -1,18 +1,20 @@
 #include "system_komputerowy.h"
 #include <ctime>
 #include "moj_random.h"
+#include <fstream>
 
 int main()
 {
- Random r(127);
- r.test();
+ Random r(77);
+ //r.test();
  Proces* ptr_proces;
- srand(time(nullptr));
- double TPG = rand()%100+1;
+ double TPG = r.Wykladn();
  bool flaga=false;
- int tick = 1000;
+ int tick = 10000;
  SystemKomputerowy moj_system;
  printf("\n*******************************************************************\n");
+ std::ofstream of;
+ of.open("plik.txt");
  do
  { 
   printf("\nKomunikaty:\n");
@@ -61,7 +63,7 @@ int main()
    if (moj_system.WolnyProcesor())
    {
     if (!moj_system.KolejkaK()[0]->Pusta() && !moj_system.KolejkaK()[1]->Pusta()) {
-     int x = rand() % 2;
+     int x = r.Normal() % 2;
      moj_system.PrzydzielProcesor(x);
      flaga = true;
     }
@@ -78,10 +80,14 @@ int main()
    }
 
    tick--;
+   if(tick>=0)
+   of << moj_system.OutL() << " ";
+ 
 
  //tryb graficzy - step by step
   moj_system.GUI();
  // std::system("Pause");
  } while (flaga);
+ of.close();
  std::system("Pause");
 }
