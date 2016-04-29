@@ -12,7 +12,7 @@ Proces::Proces():
  czas_zgloszen_(0.0),
  czas_czekania_(0.0)
 {
- printf("[SYSTEM]: stworzono Proces\n");
+ ////printf("[SYSTEM]: stworzono Proces\n");
 }
 
 int Proces::get_tpw()

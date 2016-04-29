@@ -55,8 +55,9 @@ private:
  KolejkaZdarzen* kolejka_zdarzen_;
  SJF* kolejka_k2_;
  Random* r;
- //liczba zakonczonych procesow
- int proc_killed_;
+ int debug_;
+ //liczba  procesow
+ int proc_number_;
  //licba zgloszonych do io
  int io_call_;
  //czas dzialania systemu

@@ -24,15 +24,19 @@ int64_t Random::Wykladn()
 void Random::test()
 {
  //wygenerowac spora liczbe zm losowych i zapisac do pliku by sprawdzic wykresy
- std::ofstream of;
- of.open("plik.txt");
+ std::ofstream off;
+ off.open("rand.txt");
+ int x;
  for (int i = 0; i < 100000; i++) {
   X0_ = (X0_ * a_) % m_;
  // double x=  (1/L_)*log(X0_);
-  double x = X0_%50;
-  of << x <<" " ;
+  x = X0_;
+  x = x % 20;
+ 
+  off << x <<" ";
  }
- of.close();
+ 
+ off.close();
 
 
 }

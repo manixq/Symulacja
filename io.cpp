@@ -1,23 +1,24 @@
 #include "io.h"
 
-IO::IO()
+IO::IO(int debug)
  : obecny_proces_(nullptr),
  kolejka_priorytetowa_(new KolejkaPrio())
 {
- printf("[SYSTEM]: stworzono Urzadzenie IO\n");
+ debug_ = debug_;
+ if(debug_) printf("[SYSTEM]: stworzono Urzadzenie IO\n");
 }
 
 void IO::DodajKolejka(Proces* proces)
 {
  kolejka_priorytetowa_->DodajProces(proces);
- printf("[IO]: nowy proces w kolejce\n");
+ if(debug_) printf("[IO]: nowy proces w kolejce\n");
 }
 
 void IO::Przydziel(Proces* proces)
 {
  obecny_proces_ = proces;
  proces->set_to(0);
- printf("[IO]: proces otrzymal nieprzerwany dostep do urzadzenia\n");
+ if(debug_) printf("[IO]: proces otrzymal nieprzerwany dostep do urzadzenia\n");
 }
 
 void IO::PrzydzielKolejka()

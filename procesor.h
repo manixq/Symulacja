@@ -9,11 +9,12 @@
 class Procesor
 {
 public:
- Procesor();
+ Procesor(int debug);
  void Przydziel(Proces* x);
  void Zwolnij(Proces* x);
  bool Wolny();
 private:
  Proces* obecny_proces_;
+ int debug_;
 };
 #endif

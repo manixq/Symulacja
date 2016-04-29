@@ -6,21 +6,21 @@
 int main()
 {
  Random r(77);
- //r.test();
+ r.test();
  Proces* ptr_proces;
  double TPG = r.Wykladn();
  bool flaga=false;
- int tick = 10000;
+ int tick = 100000;
  SystemKomputerowy moj_system;
  printf("\n*******************************************************************\n");
  std::ofstream of;
  of.open("plik.txt");
  do
  { 
-  printf("\nKomunikaty:\n");
+ 
   flaga = false;
   moj_system.Uaktualnij();
- 
+  
    //pojawienie sie procesu
    if (moj_system.RodzajZdarzenia() == NOWY_PROCES && moj_system.CzasZdarzenia() == 0)
    {
@@ -83,10 +83,10 @@ int main()
    if(tick>=0)
    of << moj_system.OutL() << " ";
  
+   //tryb graficzy - step by step
+   moj_system.GUI();
 
- //tryb graficzy - step by step
-  moj_system.GUI();
- // std::system("Pause");
+ 
  } while (flaga);
  of.close();
  std::system("Pause");

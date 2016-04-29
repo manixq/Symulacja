@@ -7,7 +7,7 @@
 class IO
 {
 public:
- IO();
+ IO(int debug);
  void DodajKolejka(Proces* proces);
  //przydziela proces do urzadzenia
  void Przydziel(Proces* proces);
@@ -21,6 +21,7 @@ public:
  int WielkoscKolejki();
  bool Wolny();
 private:
+ int debug_;
  Proces* obecny_proces_;
  KolejkaPrio* kolejka_priorytetowa_;
 };
