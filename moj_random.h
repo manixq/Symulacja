@@ -5,18 +5,30 @@
 class Random
 {
 public:
- Random(int64_t kernel);//TODO kernel 127 
- int64_t Normal();
- int64_t Wykladn();
- void test();//funkcja do testow - koniecznie skasowac <-------------------------------------------
+ //generuje liczbe losowa <0:1>
+ //o rozkladzie normalnym
+ static double Normal();
 
-private:
+ //generuje liczbe losowa <min:max>
+ //o rozkladzie normalnym
+ static double Normal(int min, int max);
+
+ //generuje liczbe losowa 
+ //o rozkladzie wykladniczym
+ static double Wykladn();
+
+ static void test();//funkcja do testow - koniecznie skasowac <-------------------------------------------
+
+ //tutaj inicjalizuje seed oraz intensywnosc L
+ static void Init(int64_t kernel, double L);
+
  //jadro generatora, seed
- int64_t X0_;
- int64_t m_;
- int64_t a_; 
- //L_ musi byc takie by procesy nie czekaly dluzej niz 50ms
- double L_;
+ static int64_t kernel_;
+ static int64_t m_;
+ static int64_t a_; 
+
+ //L_ musi byc tak dobrane by procesy nie czekaly dluzej niz 50ms
+ static double L_;
 };
 #endif
 

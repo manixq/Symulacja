@@ -68,53 +68,5 @@ private:
  std::deque<Proces*> lista_;
 };
 
-enum Rodzaj_Zdarzenia
-{
- BRAK = 0,
- NOWY_PROCES,
- PROSBA_DOSTEPU_IO,
- ZAKONCZENIE_OBSLUGI_IO,
- WYKONCZ_PROCES
-};
-
-//atrybut listy jednokierunkowej uzywanej do obslugi zdarzen
-class Zdarzenie
-{
-public:
- Zdarzenie();
- Zdarzenie(Rodzaj_Zdarzenia rodzaj_zdarzenia, double czas, Proces* proces);
- Zdarzenie(Rodzaj_Zdarzenia rodzaj_zdarzenia, double czas, Proces* proces, Zdarzenie* nastepne_zdarzenie);
-private:
- double czas_;
- Proces *proces_;
- Zdarzenie *nastepny_;
- Rodzaj_Zdarzenia rodzaj_zdarzenia_;
- friend class KolejkaZdarzen;
-};
-
-//lista jednokierunkowa w ktorej przechowujemy zdarzenia
-//zwracane zmienne jako najwczesniejsze rozumiemy obecne
-class KolejkaZdarzen
-{
-public:
- KolejkaZdarzen();
- ~KolejkaZdarzen();
- //zwraca czas wystapienia zdarzenia
- double WezCzas();
- //zwraca rodzaj najwczesniejszego(obecnego) zdarzenia
- Rodzaj_Zdarzenia WezRodzaj();
- bool Pusta();
- //zwraca proces najwczesniejszego zdarzenia
- Proces* WezProces();
- //wypisuje wszystkie zdarzenia
- //potrzebne wylacznie w celut testownia za pomoca GUI
- void Wypisz();
- void DodajZdarzenie(Rodzaj_Zdarzenia rodzaj_zdarzenia, double czas, Proces* proces);
- void UsunZdarzenie();
- //Modyfikuje||uaktualnie czas wszystkich zdarzen
- void UaktualnijCzas();
-private:
- Zdarzenie* head_zdarzenie_;
-};
 
 #endif

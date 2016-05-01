@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\zdarzenia">
+      <UniqueIdentifier>{99636ce2-bf52-4bc0-93ec-6f8a64006fab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\zdarzenia">
+      <UniqueIdentifier>{4cea92dd-9762-43ea-b017-9615b8c8e6a4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="io.h">
@@ -31,6 +37,33 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="moj_random.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="zakonczenie_obslugi_io.h">
+      <Filter>Header Files\zdarzenia</Filter>
+    </ClInclude>
+    <ClInclude Include="nowy_proces.h">
+      <Filter>Header Files\zdarzenia</Filter>
+    </ClInclude>
+    <ClInclude Include="prosba_dostepu_io.h">
+      <Filter>Header Files\zdarzenia</Filter>
+    </ClInclude>
+    <ClInclude Include="wykoncz_proces.h">
+      <Filter>Header Files\zdarzenia</Filter>
+    </ClInclude>
+    <ClInclude Include="wolny_procesor.h">
+      <Filter>Header Files\zdarzenia</Filter>
+    </ClInclude>
+    <ClInclude Include="dostep_do_io.h">
+      <Filter>Header Files\zdarzenia</Filter>
+    </ClInclude>
+    <ClInclude Include="model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="komunikaty.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dane.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -54,6 +87,33 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="moj_random.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="nowy_proces.cpp">
+      <Filter>Source Files\zdarzenia</Filter>
+    </ClCompile>
+    <ClCompile Include="prosba_dostepu_io.cpp">
+      <Filter>Source Files\zdarzenia</Filter>
+    </ClCompile>
+    <ClCompile Include="wolny_procesor.cpp">
+      <Filter>Source Files\zdarzenia</Filter>
+    </ClCompile>
+    <ClCompile Include="wykoncz_proces.cpp">
+      <Filter>Source Files\zdarzenia</Filter>
+    </ClCompile>
+    <ClCompile Include="zakonczenie_obslugi_io.cpp">
+      <Filter>Source Files\zdarzenia</Filter>
+    </ClCompile>
+    <ClCompile Include="dostep_do_io.cpp">
+      <Filter>Source Files\zdarzenia</Filter>
+    </ClCompile>
+    <ClCompile Include="model.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="komunikaty.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dane.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

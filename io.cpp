@@ -1,11 +1,10 @@
 #include "io.h"
 
-IO::IO(int debug)
+IO::IO()
  : obecny_proces_(nullptr),
  kolejka_priorytetowa_(new KolejkaPrio())
 {
- debug_ = debug_;
- if(debug_) printf("[SYSTEM]: stworzono Urzadzenie IO\n");
+
 }
 
 void IO::DodajKolejka(Proces* proces)

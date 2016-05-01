@@ -19,21 +19,39 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="dane.h" />
+    <ClInclude Include="dostep_do_io.h" />
     <ClInclude Include="io.h" />
     <ClInclude Include="kolejka.h" />
+    <ClInclude Include="komunikaty.h" />
+    <ClInclude Include="model.h" />
     <ClInclude Include="moj_random.h" />
+    <ClInclude Include="nowy_proces.h" />
     <ClInclude Include="proces.h" />
     <ClInclude Include="procesor.h" />
+    <ClInclude Include="prosba_dostepu_io.h" />
     <ClInclude Include="system_komputerowy.h" />
+    <ClInclude Include="wolny_procesor.h" />
+    <ClInclude Include="wykoncz_proces.h" />
+    <ClInclude Include="zakonczenie_obslugi_io.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="dane.cpp" />
+    <ClCompile Include="dostep_do_io.cpp" />
     <ClCompile Include="io.cpp" />
     <ClCompile Include="kolejka.cpp" />
+    <ClCompile Include="komunikaty.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="model.cpp" />
     <ClCompile Include="moj_random.cpp" />
+    <ClCompile Include="nowy_proces.cpp" />
     <ClCompile Include="proces.cpp" />
     <ClCompile Include="procesor.cpp" />
+    <ClCompile Include="prosba_dostepu_io.cpp" />
     <ClCompile Include="system_komputerowy.cpp" />
+    <ClCompile Include="wolny_procesor.cpp" />
+    <ClCompile Include="wykoncz_proces.cpp" />
+    <ClCompile Include="zakonczenie_obslugi_io.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0C2322A1-6F19-4838-92AC-E29A15FB5BCB}</ProjectGuid>

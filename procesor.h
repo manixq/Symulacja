@@ -9,7 +9,7 @@
 class Procesor
 {
 public:
- Procesor(int debug);
+ Procesor();
  void Przydziel(Proces* x);
  void Zwolnij(Proces* x);
  bool Wolny();

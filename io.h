@@ -7,7 +7,7 @@
 class IO
 {
 public:
- IO(int debug);
+ IO();
  void DodajKolejka(Proces* proces);
  //przydziela proces do urzadzenia
  void Przydziel(Proces* proces);
