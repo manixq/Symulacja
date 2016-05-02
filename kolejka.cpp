@@ -1,4 +1,5 @@
 #include "kolejka.h"
+#include "dane.h"
 
 void Kolejka::DodajProces(Proces* proces)
 {
@@ -98,14 +99,16 @@ bool SJF::Pusta()
  else return false;
 }
 
-void KolejkaPrio::Uaktualnij(double x)
+void KolejkaPrio::Uaktualnij()
 {
  Pole* ptr = lista_;
- double i;
+ double tpo;
+ double to;
  while(ptr->nastepne_)
  {
-  i = ptr->nastepne_->proces_->get_tpo();
-  ptr->nastepne_->proces_->set_priorytet(x - i);
+  tpo = ptr->nastepne_->proces_->get_tpo();
+  to = Dane::czas_symulacji_ - ptr->nastepne_->proces_->get_czas_czekania();
+  ptr->nastepne_->proces_->set_priorytet(to - tpo);
   ptr = ptr->nastepne_;
  }
 }

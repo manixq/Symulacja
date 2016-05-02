@@ -1,6 +1,7 @@
 #include "moj_random.h"
 #include "math.h"
 #include <fstream>
+#include "dane.h"
 
 int64_t Random :: kernel_ = 0;
 int64_t Random :: m_ = 2147483647;
@@ -43,6 +44,8 @@ void Random :: test()
 
 void Random :: Init(int64_t kernel, double L)
 {
+ Dane::kernel_ = kernel;
+ Dane::L_ = L;
  kernel_ = kernel;
  L_ = L;
 }

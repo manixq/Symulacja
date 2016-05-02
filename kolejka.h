@@ -26,7 +26,8 @@ public:
  KolejkaPrio();
  virtual ~KolejkaPrio();
  virtual void DodajProces(Proces* proces);
- void Uaktualnij(double x);
+ void Uaktualnij();
+
  //Wyrzuca proces z listy
  //proces NIE JEST trwale usuniety z systemu
  //zwraca wyrzucony proces

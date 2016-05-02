@@ -23,7 +23,6 @@
     <ClInclude Include="dostep_do_io.h" />
     <ClInclude Include="io.h" />
     <ClInclude Include="kolejka.h" />
-    <ClInclude Include="komunikaty.h" />
     <ClInclude Include="model.h" />
     <ClInclude Include="moj_random.h" />
     <ClInclude Include="nowy_proces.h" />
@@ -40,7 +39,6 @@
     <ClCompile Include="dostep_do_io.cpp" />
     <ClCompile Include="io.cpp" />
     <ClCompile Include="kolejka.cpp" />
-    <ClCompile Include="komunikaty.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="model.cpp" />
     <ClCompile Include="moj_random.cpp" />

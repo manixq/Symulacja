@@ -1,6 +1,5 @@
 #include "model.h"
 #include "moj_random.h"
-#include "komunikaty.h"
 #include "dane.h"
 
 Model::Model(int l_iteracji)
@@ -104,6 +103,7 @@ void Model::Wykonaj(bool gui)
    Dane::GUI(p, io_, moj_system);
   if (!Aktualizuj())
   {
+   Dane::Parametry();
    kDoPliku << "            ---Koniec---\n";
    break;
   }

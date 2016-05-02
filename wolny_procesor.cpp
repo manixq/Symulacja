@@ -64,5 +64,6 @@ void WolnyProcesor::Wykonaj(int i)
    kDoPliku << "Zaplanowano zdarzenie WykonczProces o czasie: " << wykoncz_proces_->czas_[i] << "\n\n";
   }
   Dane::calk_czas_oczek_na_procesor_ += Dane::czas_symulacji_ - proces->get_czas_czekania();
+  Dane::ilosc_oczek_na_procesor_++;
   proces->set_czas_czekania(Dane::czas_symulacji_);
 }

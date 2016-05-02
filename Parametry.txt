@@ -1,0 +1,6 @@
+Sredni czas oczekiwania na procesor: 177.320385
+Wykorzystanie procesora nr 0 wynosi: 98.976133 %
+Wykorzystanie procesora nr 1 wynosi: 97.128105 %
+Przepustowosc systemu mierzona liczba procesow zakonczonych w jednostce czasu: 0.077120
+Sredni czas przetwarzania(czas miedzy zgloszeniem procesu do systemu a jego zakonczeniem): 649.358024
+Sredni czas odpowiedzi(czas miedzy zgloszeniem zadania dostepu do IO, a jego otrzymaniem): 0.696912

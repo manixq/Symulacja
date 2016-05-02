@@ -19,7 +19,7 @@ void IO::Przydziel(Proces* proces)
 //przydziela proces urzadzeniu prosto z jego kolejki
 void IO::PrzydzielKolejka()
 {
- //UaktualnijPriorytet(Dane::czas_symulacji_ - obecny_proces_->get_czas_czekania());
+ UaktualnijPriorytet();
  obecny_proces_ = kolejka_priorytetowa_->Wyrzuc();
 }
 
@@ -28,10 +28,9 @@ void IO::UsunProces()
  obecny_proces_ = nullptr;
 }
 
-void IO::UaktualnijPriorytet(double x)
+void IO::UaktualnijPriorytet()
 {
- kolejka_priorytetowa_->Uaktualnij(x);
-
+ kolejka_priorytetowa_->Uaktualnij();
  KolejkaPrio* kolejka = new KolejkaPrio();
  KolejkaPrio* ptr;
  while(kolejka_priorytetowa_->Wielkosc() != 0)

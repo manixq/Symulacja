@@ -18,7 +18,7 @@ public:
 
  //zwalnia urzadzenie
  void UsunProces();
- void UaktualnijPriorytet(double x);
+ void UaktualnijPriorytet();
 
  //zwraca proces obslugujacy I/O
  Proces* WezProces();

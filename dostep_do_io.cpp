@@ -16,6 +16,7 @@ void DostepDoIO::Wykonaj(int i)
  kDoPliku << "Wolne urzadzenie o numerze: " << i << "\n";
  io_[i]->PrzydzielKolejka();
  Dane::calk_czas_odpowiedzi_ += Dane::czas_symulacji_ - io_[i]->WezProces()->get_czas_czekania();
+ Dane::ilosc_odpowiedzi_++;
  int tpo = io_[i]->WezProces()->get_tpo();
  zakonczenie_obslugi_io_->czas_[i] = Dane::czas_symulacji_ + tpo;
  kDoPliku << "Przypisano proces urzadzeniu nr: " << i << "\n";
