@@ -10,18 +10,14 @@ Procesor::Procesor()
 
 void Procesor::Przydziel(Proces* x)
 {
-
- 
+ obecny_proces_ = x; 
 }
 
-void Procesor::Zwolnij(Proces* x)
+Proces* Procesor::Zwolnij()
 {
- 
- if (obecny_proces_ == x)
- {
+ Proces* p = obecny_proces_;
   obecny_proces_ = nullptr;
-
- }
+  return p;
 }
 
 bool Procesor::Wolny()

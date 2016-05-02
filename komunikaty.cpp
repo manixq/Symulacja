@@ -1,9 +1,5 @@
 #include "komunikaty.h"
 
-std::ofstream kDoPliku;
-void Komunikaty::WypiszDowolne(char* a)
-{
-}
 
 void Komunikaty::WypiszStanKolejek(Procesor** procesory, IO** io, SystemKomputerowy* sys)
 {

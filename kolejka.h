@@ -50,6 +50,7 @@ public:
  virtual Proces* WezProces(int x);
  virtual void UsunProces(int x);
  virtual bool Pusta();
+ int i;
 };
 
 //kolejka do ktorej trafiaja procesy ktore dopiero
@@ -66,6 +67,7 @@ public:
  bool Pusta();
 private:
  std::deque<Proces*> lista_;
+ int i;
 };
 
 

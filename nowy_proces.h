@@ -3,6 +3,9 @@
 
 #include "system_komputerowy.h"
 
+//Zdarzenie generowane przez zrodlo TPG
+//Umieszcza proces na koncu kolejki K1
+//Zaplanowuje nowe zdarzenie NowyProces
 class NowyProces
 {
 public:

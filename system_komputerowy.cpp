@@ -16,48 +16,11 @@ SystemKomputerowy::~SystemKomputerowy()
 }
 
 
-bool SystemKomputerowy::WolnyProcesor()
+void SystemKomputerowy::DodajProces(Proces* proces)
 {
-
+ kolejki_k_[0]->DodajProces(proces);
 }
 
-
-
-void SystemKomputerowy::DodajProces()
-{
- kolejki_k_[0]->DodajProces(new Proces());
-}
-
-
-void SystemKomputerowy::PrzydzielProcesor(int x)
-{
-
-}
-
-void SystemKomputerowy::Uaktualnij()
-{
- 
-}
-
-void SystemKomputerowy::ZwolnijIO(Proces* proces)
-{
- 
-}
-
-void SystemKomputerowy::ZwolnijProcesor(Proces* x)
-{
-
-}
-
-void SystemKomputerowy::PrydzielIO(Proces* proces)
-{
-
-}
-
-void SystemKomputerowy::Zabij(Proces* proces)
-{
-
-}
 
 SJF** SystemKomputerowy::KolejkaK()
 {

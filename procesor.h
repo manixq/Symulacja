@@ -11,7 +11,7 @@ class Procesor
 public:
  Procesor();
  void Przydziel(Proces* x);
- void Zwolnij(Proces* x);
+ Proces* Zwolnij();
  bool Wolny();
 private:
  Proces* obecny_proces_;

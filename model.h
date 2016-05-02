@@ -19,7 +19,11 @@ public:
  ~Model();
 
  //rozpoczynamy symulacje
- void Wykonaj();
+ void Wykonaj(bool gui);
+
+ //aktualizujemy czasy i priorytety
+ //w razie niepowodzenia zwracamy false i konczymy symulacje
+ bool Aktualizuj();
 private:
  double czas_;
  int iteracje;

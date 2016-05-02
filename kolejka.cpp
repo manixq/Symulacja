@@ -54,7 +54,7 @@ void KolejkaPrio::DodajProces(Proces* proces)
  }
  nowy->nastepne_ = ptr->nastepne_;
  ptr->nastepne_ = nowy;
- ++this->i;
+ ++i;
 }
 
 SJF::SJF() :KolejkaPrio(){}
@@ -71,14 +71,14 @@ void SJF::DodajProces(Proces* proces)
  }
  nowy->nastepne_ = ptr->nastepne_;
  ptr->nastepne_ = nowy;
- ++this->i;
+ ++i;
 }
 
 SJF::~SJF(){}
 
 int SJF::Wielkosc()
 {
- return KolejkaPrio::Wielkosc();
+ return i;
 }
 
 Proces* SJF::WezProces(int x)
@@ -89,7 +89,7 @@ Proces* SJF::WezProces(int x)
 void SJF::UsunProces(int x)
 {
  lista_->nastepne_ = lista_->nastepne_->nastepne_;
- --this->i;
+ --i;
 }
 
 bool SJF::Pusta()
@@ -104,22 +104,24 @@ void KolejkaPrio::Uaktualnij(double x)
  double i;
  while(ptr->nastepne_)
  {
-  i = ptr->nastepne_->proces_->get_priorytet();
-  ptr->nastepne_->proces_->set_priorytet(x + i);
+  i = ptr->nastepne_->proces_->get_tpo();
+  ptr->nastepne_->proces_->set_priorytet(x - i);
   ptr = ptr->nastepne_;
  }
 }
 
+//usuwa proces z kolejki
+//przydziela usuniety proces urzadzeniu
 Proces* KolejkaPrio::Wyrzuc()
 {
  Proces* ptr = lista_->nastepne_->proces_; 
  lista_->nastepne_ = lista_->nastepne_->nastepne_;
- --this->i;
+ --i;
  return ptr;
 }
 
 int KolejkaPrio::Wielkosc()
 {
- return this->i;
+ return i;
 }
 

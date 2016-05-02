@@ -34,15 +34,20 @@ private:
  int tpo_;
  //czas oczekiwania w kolejce do I/O
  int to_;
+
  //zmienna pomocnicza 
  //jesli proces zada dostepu do I/O - true
  bool zadanie_dostepu_;
  int priorytet_;
+
  //czas stworzenia procesu
  double wiek_;
+
  //czas zgloszenia zadania
  double czas_zgloszen_;
- //czas czekania w kolejce
+
+ //czas czekania w kolejce,
+ // uzywane takze jako czas uzyskania dostepu do procesora
  double czas_czekania_;
 };
 #endif//SYMULACJA_PROCES_H_
