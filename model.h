@@ -19,6 +19,7 @@ public:
  ~Model();
 
  //rozpoczynamy symulacje
+ //gui oznacza tryb krokowy
  void Wykonaj(bool gui);
 
  //aktualizujemy czasy i priorytety

@@ -25,23 +25,6 @@ double Random :: Wykladn()
  return ((-1 / L_) * log(Normal()));
 }
 
-void Random :: test()
-{
- //wygenerowac spora liczbe zm losowych i zapisac do pliku by sprawdzic wykresy
- std :: ofstream off;
- off.open("rand.txt");
- int x;
- for (int i = 0; i < 100000; i++) {
-  kernel_ = (kernel_ * a_) % m_;
- // double x=  (1/L_)*log(kernel_);
-  x = kernel_;
-  x = x % 20;
- 
-  off << x <<" ";
- }
- off.close();
-}
-
 void Random :: Init(int64_t kernel, double L)
 {
  Dane::kernel_ = kernel;

@@ -71,3 +71,18 @@ void Dane::Parametry()
   fclose(file);
 
 }
+
+void Dane::Reset()
+{
+ czas_symulacji_ = 0.0;
+ czas_pracy_procesora_[0] = 0.0;
+ czas_pracy_procesora_[1] = 0.0;
+ calk_czas_przetwarzania_ = 0.0;
+ calk_czas_oczek_na_procesor_ = 0.0;
+ calk_czas_odpowiedzi_ = 0.0;
+ L_ = 0.0;
+ calk_liczba_procesow_ = 0;
+ ilosc_odpowiedzi_ = 0;
+ ilosc_oczek_na_procesor_ = 0;
+ kernel_ = 0;
+}

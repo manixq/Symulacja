@@ -11,6 +11,10 @@ class ZakonczenieObslugiIO
 {
 public:
  ZakonczenieObslugiIO(IO** io, SystemKomputerowy* sys);
+
+ //zwalnia proces z urzadzenia 
+ //i umieszcza go w kolejsce SJF
+ //argument i oznacza numer urzadzenia
  void Wykonaj(int i);
  double czas_[5];
 private:

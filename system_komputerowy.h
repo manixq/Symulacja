@@ -3,8 +3,11 @@
 #include "procesor.h"
 #include "io.h"
 
-//gromadzi wszystkie pozostale elementy systemu
-//Przyklad uzycia: SystemKomputerowy sys();
+//gromadzi kolejki systemu 
+//z ktorych wybierany jest proces do obslugi przez procesor
+//Przyklad uzycia: 
+//SystemKomputerowy sys();
+//sys.DodajProces(p);                 
 class SystemKomputerowy
 {
 public:

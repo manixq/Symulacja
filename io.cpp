@@ -10,12 +10,6 @@ void IO::DodajKolejka(Proces* proces)
  kolejka_priorytetowa_->DodajProces(proces);
 }
 
-void IO::Przydziel(Proces* proces)
-{
- obecny_proces_ = proces;
- proces->set_to(0);
-}
-
 //przydziela proces urzadzeniu prosto z jego kolejki
 void IO::PrzydzielKolejka()
 {

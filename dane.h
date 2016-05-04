@@ -9,9 +9,19 @@ extern std::ofstream kDoPliku;
 class Dane
 {
 public:
+
+ //wypisuje w konsoli stan systemu krok po kroku
  static void GUI(Procesor** procesory, IO** io, SystemKomputerowy* sys);
+
+ //wypisuje w konsoli i do pliku "Parametry.txt"
+ //obliczenia symulacyjne
  static void Parametry();
+ static void Reset();
+
+ //calkowity czas symulacji
  static double czas_symulacji_;
+
+ //czas jaki procesor jest uzywany przez procesy
  static double czas_pracy_procesora_[2];
 
  //liczba mowiaca ile stworzylismy procesow

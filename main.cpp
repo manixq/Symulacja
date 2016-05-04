@@ -9,29 +9,34 @@ int main()
  int64_t kernel;
  double L;
  int iter;
+ bool restart = true;
+ while (restart) {
+  restart = false;
+  kDoPliku.open("Dane.txt");
+  std::cout << "\n\nPodaj kernel (np. 127): ";
+  std::cin >> kernel;
+  std::cout << "Podaj intensywnosc L (np. 0.1): ";
+  std::cin >> L;
+  std::cout << "Podaj ilosc iteracji (np. 1000): ";
+  std::cin >> iter;
 
- kDoPliku.open("Dane.txt");
- std::cout << "Podaj kernel (np. 127): ";
- std::cin >> kernel;
- std::cout << "/nPodaj intensywnosc L (np. 0.1): ";
- std::cin >> L;
- std::cout << "/nPodaj ilosc iteracji (np. 1000): ";
- std::cin >> iter;
+  int x;
+  std::cout << "\nSymulacja Natychmiastowa: Wprowadz '0'\n";
+  std::cout << "Symulacja Krok po kroku: Wprowadz '1'\n";
+  std::cout << "Wybierasz:  ";
+  std::cin >> x;
 
- system("cls");
+  Random::Init(kernel, L);
+  Model model_symulacji(iter);
+  model_symulacji.Wykonaj(x);
 
- int x;
- std::cout << "Symulacja Natychmiastowa: WprowadŸ '0'\n";
- std::cout << "Symulacja Krok po kroku: WprowadŸ '1'\n";
- std::cout << "Wybierasz:  ";
- std::cin >> x;
- 
- system("cls");
+  std::cout << "\nPonowic Symulacje: '1'\n";
+  std::cout << "Wyjdz: '0'\n";
+  std::cout << "Wybierasz:  ";
+  std::cin >> restart;
 
- Random::Init(kernel, L);
- Model model_symulacji(iter);
- model_symulacji.Wykonaj(x);
-
- kDoPliku.close();
+  kDoPliku.close();
+  Dane::Reset();
+ }
  std::system("Pause");
 }

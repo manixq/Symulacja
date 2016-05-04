@@ -17,8 +17,6 @@ public:
  //o rozkladzie wykladniczym
  static double Wykladn();
 
- static void test();//funkcja do testow - koniecznie skasowac <-------------------------------------------
-
  //tutaj inicjalizuje seed oraz intensywnosc L
  static void Init(int64_t kernel, double L);
 

@@ -5,6 +5,9 @@
 
 //reprezentuje pojedynczy procesor ktory jest zajmowany przez proces
 //uzycie Procesor proc();
+//Procesor proc;
+//proc.Przydziel(p);
+//proc.Zwolnij();
 //funkcje nie wymagaja dodatkowego komentarza
 class Procesor
 {
@@ -15,6 +18,5 @@ public:
  bool Wolny();
 private:
  Proces* obecny_proces_;
- int debug_;
 };
 #endif

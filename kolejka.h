@@ -3,8 +3,6 @@
 #include "proces.h"
 #include <queue>
 
-
-
 //Atrybut kolejki priorytetowej
 class Pole
 {
@@ -18,14 +16,21 @@ private:
  friend class SJF;
 };
 
-//kolejka dla procesow zadajacych dostepu do urzadzenia I/O
-//uzycie: KolejkaPrio kolejka;
+//Kolejka do której trafiaj¹ procesy zwolnione 
+//przez procesor z powodu ¿¹dania dostêpu do 
+//urz¹dzeñ wej - wyj.Procesy s¹ w niej pouk³adane
+//w zale¿noœci od ich priorytetu.
+//uzycie:
+//KolejkaPrio kolejka;
+//kolejka.DodajProces(p);
 class KolejkaPrio
 {
 public:
  KolejkaPrio();
  virtual ~KolejkaPrio();
  virtual void DodajProces(Proces* proces);
+
+ //uaktualnia priorytety kolejki
  void Uaktualnij();
 
  //Wyrzuca proces z listy
@@ -41,6 +46,8 @@ protected:
 };
 
 //Kolejka przechowuja procesy zwolnione z urzadzen I/O
+//Procesy pouk³adane s¹ zgodnie z metod¹ SJF 
+//-najpierw najkrótszy pozosta³y czas.
 class SJF:public KolejkaPrio
 {
 public:

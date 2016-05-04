@@ -15,12 +15,10 @@ SystemKomputerowy::~SystemKomputerowy()
  delete[] kolejki_k_;
 }
 
-
 void SystemKomputerowy::DodajProces(Proces* proces)
 {
  kolejki_k_[0]->DodajProces(proces);
 }
-
 
 SJF** SystemKomputerowy::KolejkaK()
 {
