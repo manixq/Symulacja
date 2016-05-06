@@ -48,46 +48,38 @@ void Model::Wykonaj(bool gui)
   while (flaga)
   {
    flaga = false;
-   if (nowy_proces_event->czas_ == Dane::czas_symulacji_)
+   if (abs(nowy_proces_event->czas_ - Dane::czas_symulacji_) < 0.00001)
    {
-    //w momencie gdy zmienna iteracje jest ujemna,
-    //nowe procesy nie wplyna do systemu, a procesy pozostale dokoncza swe dzialanie
-    if (iteracje >= 0)
-    {
      nowy_proces_event->Wykonaj();
      flaga = true;
-    }else  nowy_proces_event->czas_ = -1;
    }
 
    for (int i = 0; i < 2; i++)
-    if (prosba_dostepu_io_event->czas_[i] == Dane::czas_symulacji_)
+    if (abs(prosba_dostepu_io_event->czas_[i] - Dane::czas_symulacji_) < 0.00001)
     {
      prosba_dostepu_io_event->Wykonaj(i);
      flaga = true;
     }
 
    for (int i = 0; i < 5; i++)
-    if (zakonczenie_obslugi_io_event->czas_[i] == Dane::czas_symulacji_)
+    if (abs(zakonczenie_obslugi_io_event->czas_[i] - Dane::czas_symulacji_) < 0.00001)
     {
      zakonczenie_obslugi_io_event->Wykonaj(i);
      flaga = true;
     }
 
    for (int i = 0; i < 2; i++)
-    if (wykoncz_proces_event->czas_[i] == Dane::czas_symulacji_)
+    if (abs(wykoncz_proces_event->czas_[i] - Dane::czas_symulacji_) < 0.00001)
     {
      wykoncz_proces_event->Wykonaj(i);
      flaga = true;
     }
    
     for (int i = 0; i < 2; i++)
-     if (!moj_system->KolejkaK()[0]->Pusta() || !moj_system->KolejkaK()[1]->Pusta())
+     if ((!moj_system->KolejkaK()[0]->Pusta() || !moj_system->KolejkaK()[1]->Pusta()) && p[i]->Wolny())
      {
-      if (p[i]->Wolny())
-      {
        wolny_procesor_event->Wykonaj(i);
        flaga = true;
-      }
      }
 
    for (int i = 0; i < 5; i++)
@@ -99,26 +91,26 @@ void Model::Wykonaj(bool gui)
     }
    }
   }
+
   if(gui)
    Dane::GUI(p, io_, moj_system);
-  if (!Aktualizuj())
-  {
-   Dane::Parametry();
+  Dane::Parametry(gui);
+  kDoPliku << "\n--------------------------------------------------------------------\n";
+
+  if(iteracje)
+   iteracje--;
+  else{
    kDoPliku << "            ---Koniec---\n";
+   fclose(Dane::file);
    break;
   }
-  kDoPliku << "\n--------------------------------------------------------------------\n";
-  iteracje--;
+  Aktualizuj();
  }
 }
 
-bool Model::Aktualizuj()
+void Model::Aktualizuj()
 {
- //odstep czasu miedzy zdarzeniami ktorego symulacja nigdy nie przekroczy
- //zapewni nam to poprawne zakonczenie dzialania procesow
- double tmin = Dane::czas_symulacji_ + 100;
- if (nowy_proces_event->czas_ >= 0)
-  tmin = nowy_proces_event->czas_;
+  double tmin = nowy_proces_event->czas_;
  for (int i = 0; i < 2; i++)
   if (prosba_dostepu_io_event->czas_[i] >= 0 && prosba_dostepu_io_event->czas_[i] < tmin)
    tmin = prosba_dostepu_io_event->czas_[i];
@@ -128,9 +120,7 @@ bool Model::Aktualizuj()
  for (int i = 0; i < 2; i++)
   if (wykoncz_proces_event->czas_[i] >= 0 && wykoncz_proces_event->czas_[i] < tmin)
    tmin = wykoncz_proces_event->czas_[i];
- if (tmin == Dane::czas_symulacji_ + 100)
-  return false;
+
  tmin = tmin - Dane::czas_symulacji_;
  Dane::czas_symulacji_ += tmin;
- return true;
 }

@@ -24,7 +24,7 @@ public:
 
  //aktualizujemy czasy i priorytety
  //w razie niepowodzenia zwracamy false i konczymy symulacje
- bool Aktualizuj();
+ void Aktualizuj();
 private:
  double czas_;
  int iteracje;

@@ -15,7 +15,7 @@ public:
 
  //wypisuje w konsoli i do pliku "Parametry.txt"
  //obliczenia symulacyjne
- static void Parametry();
+ static void Parametry(bool gui);
  static void Reset();
 
  //calkowity czas symulacji
@@ -45,5 +45,6 @@ public:
  //oraz counter
  static double calk_czas_odpowiedzi_;
  static int ilosc_odpowiedzi_;
+ static FILE* file;
 };
 #endif
