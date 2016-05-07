@@ -26,7 +26,7 @@ void ProsbaDostepuIO::Wykonaj(int num)
  proces->set_czas_czekania(Dane::czas_symulacji_);
  ios_[i]->DodajKolejka(proces);
 
- kDoPliku << "Zdarzenie Prosba Dostepu do IO... Wykonano! \n";
- kDoPliku << "Zwolniono Procesor nr: " << num << "\n";
- kDoPliku << "Dodano Proces do Kolejki urzadzenia nr: " << i << "\n\n";
+ fprintf(Dane::do_pliku_,"Zdarzenie Prosba Dostepu do IO... Wykonano! \n");
+ fprintf(Dane::do_pliku_, "Zwolniono Procesor nr: %d\n", num);
+ fprintf(Dane::do_pliku_, "Dodano Proces do Kolejki urzadzenia nr: %d\n\n",i);
 }

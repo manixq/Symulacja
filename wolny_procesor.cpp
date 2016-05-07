@@ -15,8 +15,8 @@ WolnyProcesor::WolnyProcesor(SystemKomputerowy* sys, Procesor** procesory, Prosb
 
 void WolnyProcesor::Wykonaj(int i)
 {
- kDoPliku << "Zdarzenie WolnyProcesor... Wykonano!\n";
- kDoPliku << "Wolny Procesor o numerze: " << i << "\n";
+ fprintf(Dane::do_pliku_,"Zdarzenie WolnyProcesor... Wykonano!\n");
+ fprintf(Dane::do_pliku_, "Wolny Procesor o numerze: %d\n",i);
  int x = 0;
  int num = 0;
  Proces* proces;
@@ -46,7 +46,7 @@ void WolnyProcesor::Wykonaj(int i)
    procesory_[i]->Przydziel(proces);
   }
 
-  kDoPliku << "Przydzielono proces do procesora nr: " << i << "\n";
+  fprintf(Dane::do_pliku_, "Przydzielono proces do procesora nr: %d\n",i);
   int tpw = proces->get_tpw();
   if (tpw == 0)
   {
@@ -58,12 +58,12 @@ void WolnyProcesor::Wykonaj(int i)
   {
    proces->set_tpw(tpw - tpio);
    prosba_dostepu_io_->czas_[i] = Dane::czas_symulacji_ + tpio;   
-   kDoPliku << "Zaplanowano zdarzenie ProsbaDostepuIO o czasie: " << prosba_dostepu_io_->czas_[i] << "\n\n";
+   fprintf(Dane::do_pliku_, "Zaplanowano zdarzenie ProsbaDostepuIO o czasie: %f \n\n", prosba_dostepu_io_->czas_[i]);
   }
   else
   {
    wykoncz_proces_->czas_[i] = Dane::czas_symulacji_ + tpw;
-   kDoPliku << "Zaplanowano zdarzenie WykonczProces o czasie: " << wykoncz_proces_->czas_[i] << "\n\n";
+   fprintf(Dane::do_pliku_, "Zaplanowano zdarzenie WykonczProces o czasie: %f\n\n", wykoncz_proces_->czas_[i]);
   }
   Dane::calk_czas_oczek_na_procesor_ += Dane::czas_symulacji_ - proces->get_czas_czekania();
   Dane::ilosc_oczek_na_procesor_++;

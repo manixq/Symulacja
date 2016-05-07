@@ -16,6 +16,7 @@ void ZakonczenieObslugiIO::Wykonaj(int i)
    io_[i]->WezProces()->set_czas_czekania(Dane::czas_symulacji_);
    sys_->KolejkaK()[1]->DodajProces(io_[i]->WezProces());
    io_[i]->UsunProces();
-   kDoPliku << "Zdarzenie ZakonczenieObslugiIO... Wykonano! \n";
-   kDoPliku << "Zwolniono urzadzenie I/O nr: " << i << "\n\n";
+   fprintf(Dane::do_pliku_, "Zdarzenie ZakonczenieObslugiIO... Wykonano! \n");
+   fprintf(Dane::do_pliku_, "Zwolniono urzadzenie I/O nr: %d\n\n",i);
+ 
 }

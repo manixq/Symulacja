@@ -1,10 +1,10 @@
 #ifndef SYMULACJA_DANE_H_
 #define  SYMULACJA_DANE_H_
-#include "fstream"
+#include <cstdio>
+#include <string>
 class Procesor;
 class IO;
 class SystemKomputerowy;
-extern std::ofstream kDoPliku;
 
 class Dane
 {
@@ -12,6 +12,9 @@ public:
 
  //wypisuje w konsoli stan systemu krok po kroku
  static void GUI(Procesor** procesory, IO** io, SystemKomputerowy* sys);
+
+ //generuje nowa nazwe pliku do ktorego zapisujemy wyniki
+ static std::string ZmienNazwe();
 
  //wypisuje w konsoli i do pliku "Parametry.txt"
  //obliczenia symulacyjne
@@ -45,6 +48,8 @@ public:
  //oraz counter
  static double calk_czas_odpowiedzi_;
  static int ilosc_odpowiedzi_;
- static FILE* file;
+
+ static int numer_symulacji_;
+ static FILE* do_pliku_;
 };
 #endif

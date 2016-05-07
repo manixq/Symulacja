@@ -1,10 +1,11 @@
 #include "model.h"
 #include "moj_random.h"
 #include "dane.h"
+#include <iostream>
 
-Model::Model(int l_iteracji)
+Model::Model()
  : czas_(0.0),
-   iteracje(l_iteracji)
+   gui(0)
 {
  for (int i = 0; i < 5; i++)
   io_[i] = new IO();
@@ -38,12 +39,12 @@ Model::~Model()
 }
 
 
-void Model::Wykonaj(bool gui)
+void Model::Wykonaj()
 {
  bool flaga = true;
  for (;;)
  {
-  kDoPliku << "      ---Czas Systemu: " << Dane::czas_symulacji_ << "---\n";
+  fprintf(Dane::do_pliku_,"      ---Czas Systemu: %f ---\n", Dane::czas_symulacji_);
   flaga = true;
   while (flaga)
   {
@@ -101,11 +102,42 @@ void Model::Wykonaj(bool gui)
    iteracje--;
   else{
    kDoPliku << "            ---Koniec---\n";
-   fclose(Dane::file);
+   fclose(Dane::do_pliku_);
    break;
   }
   Aktualizuj();
  }
+}
+
+void Model::Menu()
+{
+ int kernel;
+ double L;
+ int x;
+ std::cout << "\n\nPodaj kernel (np. 127): ";
+ std::cin >> kernel;
+ fprintf(Dane::do_pliku_, "Kernel: %d\n", kernel);
+ std::cout << "Podaj intensywnosc L (np. 0.1): ";
+ std::cin >> L;
+ fprintf(Dane::do_pliku_, "L: %f\n", L);
+ std::cout << "Podaj ilosc iteracji (np. 1000): ";
+ std::cin >> iteracje;
+ fprintf(Dane::do_pliku_, "Liczba iteracji: %d\n",iteracje);
+ std::cout << "\nSymulacja Natychmiastowa: Wprowadz '0'\n";
+ std::cout << "Symulacja Krok po kroku: Wprowadz '1'\n";
+ std::cout << "Wybierasz:  ";
+ std::cin >> gui;
+ Random::Init(kernel, L);
+}
+
+bool Model::Powtorzyc()
+{
+ bool restart;
+ std::cout << "\nPonowic Symulacje: '1'\n";
+ std::cout << "Wyjdz: '0'\n";
+ std::cout << "Wybierasz:  ";
+ std::cin >> restart;
+ return restart;
 }
 
 void Model::Aktualizuj()

@@ -13,6 +13,6 @@ void NowyProces::Wykonaj()
  proces->set_czas_czekania(Dane::czas_symulacji_);
  sys_->DodajProces(proces);
  czas_ = Random::Wykladn() + Dane::czas_symulacji_;
- kDoPliku << "Zdarzenie Nowy Proces... Wykonano! \n";
- kDoPliku << "Nastepny proces zaplanowano o czasie: " << czas_ + Dane::czas_symulacji_ << "\n\n";
+ fprintf(Dane::do_pliku_,"Zdarzenie Nowy Proces... Wykonano! \n");
+ fprintf(Dane::do_pliku_, "Nastepny proces zaplanowano o czasie: %f\n\n", czas_ + Dane::czas_symulacji_);
 }

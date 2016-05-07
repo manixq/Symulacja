@@ -15,12 +15,13 @@ class Model
 public:
  //jako argument Modelu podajemy liczbe iteracji
  //gdy model wykona okreslona liczbe iteracji, konczy prace
- Model(int l_iteracji);
+ Model();
  ~Model();
 
  //rozpoczynamy symulacje
- //gui oznacza tryb krokowy
- void Wykonaj(bool gui);
+ void Wykonaj();
+ void Menu();
+ bool Powtorzyc();
 
  //aktualizujemy czasy i priorytety
  //w razie niepowodzenia zwracamy false i konczymy symulacje
@@ -28,6 +29,9 @@ public:
 private:
  double czas_;
  int iteracje;
+
+ //gui oznacza tryb krokowy
+ int gui;
 
  IO* io_[5];
  SystemKomputerowy* moj_system;
