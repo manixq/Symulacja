@@ -55,7 +55,7 @@ std::string Dane::ZmienNazwe()
 {
  std::string plik = "symulacja_";
  std::string nr_sym = std::to_string(Dane::numer_symulacji_);
-  std::string nazwa = plik + nr_sym;
+  std::string nazwa = plik + nr_sym + ".txt";
   return nazwa;
 }
 

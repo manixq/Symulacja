@@ -10,7 +10,7 @@ int main()
 {
  bool restart = true;
  while (restart) {
-  fopen(Dane::ZmienNazwe().c_str(), "w");
+  Dane::do_pliku_ = fopen(Dane::ZmienNazwe().c_str(), "w");
   restart = false;
   Model model_symulacji;
   model_symulacji.Menu(); 

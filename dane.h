@@ -1,6 +1,6 @@
 #ifndef SYMULACJA_DANE_H_
 #define  SYMULACJA_DANE_H_
-#include <cstdio>
+#include <fstream>
 #include <string>
 class Procesor;
 class IO;

@@ -96,12 +96,12 @@ void Model::Wykonaj()
   if(gui)
    Dane::GUI(p, io_, moj_system);
   Dane::Parametry(gui);
-  kDoPliku << "\n--------------------------------------------------------------------\n";
+  fprintf(Dane::do_pliku_, "\n--------------------------------------------------------------------\n");
 
   if(iteracje)
    iteracje--;
   else{
-   kDoPliku << "            ---Koniec---\n";
+   fprintf(Dane::do_pliku_, "            ---Koniec---\n");
    fclose(Dane::do_pliku_);
    break;
   }

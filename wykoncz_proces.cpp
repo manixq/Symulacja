@@ -17,7 +17,7 @@ void WykonczProces::Wykonaj(int i)
  Dane::calk_czas_przetwarzania_ += Dane::czas_symulacji_ - proces->get_wiek();
  Dane::calk_liczba_procesow_++;
  delete proces; 
- kDoPliku << "Zdarzenie WykonczProces... Wykonano! \n";
- kDoPliku << "Zwolniono Procesor nr: " << i << "\n";
- kDoPliku << "Permanentnie usunieto Proces z systemu\n\n";
+ fprintf(Dane::do_pliku_,"Zdarzenie WykonczProces... Wykonano! \n");
+ fprintf(Dane::do_pliku_, "Zwolniono Procesor nr: %d\n",i);
+ fprintf(Dane::do_pliku_, "Permanentnie usunieto Proces z systemu\n\n");
 }
