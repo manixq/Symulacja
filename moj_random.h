@@ -6,11 +6,11 @@ class Random
 {
 public:
  //generuje liczbe losowa <0:1>
- //o rozkladzie normalnym
+ //o rozkladzie rownomiernym
  static double Normal();
 
  //generuje liczbe losowa <min:max>
- //o rozkladzie normalnym
+ //o rozkladzie rownomiernym
  static double Normal(int min, int max);
 
  //generuje liczbe losowa 
@@ -19,6 +19,9 @@ public:
 
  //tutaj inicjalizuje seed oraz intensywnosc L
  static void Init(int64_t kernel, double L);
+
+ //testowanie generatorów
+ static void Test();
 
  //jadro generatora, seed
  static int64_t kernel_;

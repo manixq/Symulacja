@@ -24,9 +24,7 @@ Model::~Model()
 {
  for (int i = 0; i < 5; i++)
   delete io_[i];
-
  delete moj_system;
-
  delete p[0];
  delete p[1];
 
@@ -44,7 +42,7 @@ void Model::Wykonaj()
  bool flaga = true;
  for (;;)
  {
-  fprintf(Dane::do_pliku_,"      ---Czas Systemu: %f ---\n", Dane::czas_symulacji_);
+  fprintf(Dane::do_pliku_,"\n\n      ---Czas Systemu: %f ---\n", Dane::czas_symulacji_);
   flaga = true;
   while (flaga)
   {
@@ -92,11 +90,10 @@ void Model::Wykonaj()
     }
    }
   }
-
-  if(gui)
+  if (gui)
    Dane::GUI(p, io_, moj_system);
   Dane::Parametry(gui);
-  fprintf(Dane::do_pliku_, "\n--------------------------------------------------------------------\n");
+  
 
   if(iteracje)
    iteracje--;
@@ -114,7 +111,7 @@ void Model::Menu()
  int kernel;
  double L;
  int x;
- std::cout << "\n\nPodaj kernel (np. 127): ";
+ std::cout << "\n\nPodaj kernel (np. 1271): ";
  std::cin >> kernel;
  fprintf(Dane::do_pliku_, "Kernel: %d\n", kernel);
  std::cout << "Podaj intensywnosc L (np. 0.1): ";
@@ -139,6 +136,7 @@ bool Model::Powtorzyc()
  std::cin >> restart;
  return restart;
 }
+
 
 void Model::Aktualizuj()
 {

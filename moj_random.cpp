@@ -32,3 +32,25 @@ void Random :: Init(int64_t kernel, double L)
  kernel_ = kernel;
  L_ = L;
 }
+
+
+void Random::Test()
+{
+ kernel_ = 1271;
+ L_ = 0.05;
+ FILE* normal = fopen("Normal.txt","w");
+ for (int i = 0; i < 10000; i++)
+ {
+  fprintf(normal, "%f ", Normal());
+ }
+ fclose(normal);
+
+ kernel_ = 1271;
+ L_ = 0.05;
+ FILE* wyklad = fopen("Wykladn.txt", "w");
+ for (int i = 0; i < 10000; i++)
+ {
+  fprintf(normal, "%f ",Wykladn());
+ }
+ fclose(wyklad);
+}

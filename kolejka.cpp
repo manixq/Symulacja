@@ -1,5 +1,12 @@
 #include "kolejka.h"
 #include "dane.h"
+#include "moj_random.h"
+
+Kolejka::~Kolejka()
+{
+ for (int i = 0; i < lista_.size(); i++)
+  delete lista_[i];
+}
 
 void Kolejka::DodajProces(Proces* proces)
 {
@@ -26,7 +33,14 @@ bool Kolejka::Pusta()
  return lista_.empty();
 }
 
+
 Pole::Pole():proces_(nullptr), nastepne_(nullptr){}
+
+Pole::~Pole()
+{
+ if(proces_)
+  delete proces_;
+}
 
 Pole::Pole(Proces* proces): proces_(proces), nastepne_(nullptr) {}
 
@@ -37,6 +51,7 @@ KolejkaPrio::~KolejkaPrio()
  Pole* ptr = lista_;
  while(ptr)
  {
+  delete ptr->proces_;
   ptr = ptr->nastepne_;
   delete lista_;
   lista_ = ptr;
@@ -67,7 +82,14 @@ void SJF::DodajProces(Proces* proces)
  while (ptr->nastepne_)
  {
   if (proces->get_tpw() < lista_->nastepne_->proces_->get_tpw())
-   break;
+   if (abs(proces->get_tpw() - lista_->nastepne_->proces_->get_tpw()) < 0.000001 )
+   {
+    int x = Random::Normal(0, 1);
+    if (x)
+     break;
+   }
+   else
+    break;
   ptr = ptr->nastepne_;
  }
  nowy->nastepne_ = ptr->nastepne_;
@@ -75,7 +97,17 @@ void SJF::DodajProces(Proces* proces)
  ++i;
 }
 
-SJF::~SJF(){}
+SJF::~SJF()
+{
+ Pole* ptr = lista_;
+ while (ptr)
+ {
+  delete ptr->proces_;
+  ptr = ptr->nastepne_;
+  delete lista_;
+  lista_ = ptr;
+ }
+}
 
 int SJF::Wielkosc()
 {
@@ -98,6 +130,7 @@ bool SJF::Pusta()
  if (lista_->nastepne_ == nullptr)return true; 
  else return false;
 }
+
 
 void KolejkaPrio::Uaktualnij()
 {

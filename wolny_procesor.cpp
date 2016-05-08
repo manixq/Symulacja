@@ -65,6 +65,8 @@ void WolnyProcesor::Wykonaj(int i)
    wykoncz_proces_->czas_[i] = Dane::czas_symulacji_ + tpw;
    fprintf(Dane::do_pliku_, "Zaplanowano zdarzenie WykonczProces o czasie: %f\n\n", wykoncz_proces_->czas_[i]);
   }
+  if (Dane::max_czas_oczek_ < Dane::czas_symulacji_ - proces->get_czas_czekania())
+   Dane::max_czas_oczek_ = Dane::czas_symulacji_ - proces->get_czas_czekania();
   Dane::calk_czas_oczek_na_procesor_ += Dane::czas_symulacji_ - proces->get_czas_czekania();
   Dane::ilosc_oczek_na_procesor_++;
   proces->set_czas_czekania(Dane::czas_symulacji_);

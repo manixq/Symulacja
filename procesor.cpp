@@ -8,6 +8,13 @@ Procesor::Procesor()
  
 }
 
+Procesor::~Procesor()
+{
+ if (obecny_proces_)
+  delete obecny_proces_;
+}
+
+
 void Procesor::Przydziel(Proces* x)
 {
  obecny_proces_ = x; 

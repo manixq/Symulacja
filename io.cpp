@@ -5,10 +5,19 @@ IO::IO()
  : obecny_proces_(nullptr),
    kolejka_priorytetowa_(new KolejkaPrio()){}
 
+IO::~IO()
+{
+ if (obecny_proces_)
+  delete obecny_proces_;
+ delete kolejka_priorytetowa_;
+}
+
 void IO::DodajKolejka(Proces* proces)
 {
  kolejka_priorytetowa_->DodajProces(proces);
 }
+
+
 
 //przydziela proces urzadzeniu prosto z jego kolejki
 void IO::PrzydzielKolejka()

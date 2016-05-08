@@ -8,6 +8,7 @@ class Pole
 {
 public: 
  Pole();
+ ~Pole();
  Pole(Proces* proces);
 private:
  Proces* proces_;
@@ -52,8 +53,8 @@ class SJF:public KolejkaPrio
 {
 public:
  SJF();
- virtual void DodajProces(Proces* proces);
  virtual ~SJF();
+ virtual void DodajProces(Proces* proces);
  virtual int Wielkosc();
  virtual Proces* WezProces(int x);
  virtual void UsunProces(int x);
@@ -68,6 +69,7 @@ public:
 class Kolejka : public SJF
 {
 public:
+ virtual ~Kolejka();
  void DodajProces(Proces* proces);
  int Wielkosc();
  Proces* WezProces(int x);

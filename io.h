@@ -12,6 +12,7 @@ class IO
 {
 public:
  IO();
+ ~IO();
  //dodaje proces do kolejki priorytetowej
  void DodajKolejka(Proces* proces);
 

@@ -13,6 +13,7 @@ class Procesor
 {
 public:
  Procesor();
+ ~Procesor();
  void Przydziel(Proces* x);
  Proces* Zwolnij();
  bool Wolny();
