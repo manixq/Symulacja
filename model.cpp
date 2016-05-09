@@ -2,9 +2,11 @@
 #include "moj_random.h"
 #include "dane.h"
 #include <iostream>
+#include <stdio.h>
+#include <fstream>
 
 Model::Model()
- : czas_(0.0),
+ : czas_(0.0), iteracje(80000),
    gui(0)
 {
  for (int i = 0; i < 5; i++)
@@ -93,28 +95,23 @@ void Model::Wykonaj()
   if (gui)
    Dane::GUI(p, io_, moj_system);
   Dane::Parametry(gui);
-  
-
-  if(iteracje)
-   iteracje--;
-  else{
+  if (!iteracje) {
    fprintf(Dane::do_pliku_, "            ---Koniec---\n");
-   fclose(Dane::do_pliku_);
    break;
   }
   Aktualizuj();
+  iteracje--;
  }
 }
 
 void Model::Menu()
 {
  int kernel;
- double L;
- int x;
+ double L= 0.073;
  std::cout << "\n\nPodaj kernel (np. 1271): ";
  std::cin >> kernel;
  fprintf(Dane::do_pliku_, "Kernel: %d\n", kernel);
- std::cout << "Podaj intensywnosc L (np. 0.1): ";
+ std::cout << "Podaj intensywnosc L (np. 0.072): ";
  std::cin >> L;
  fprintf(Dane::do_pliku_, "L: %f\n", L);
  std::cout << "Podaj ilosc iteracji (np. 1000): ";
@@ -125,11 +122,26 @@ void Model::Menu()
  std::cout << "Wybierasz:  ";
  std::cin >> gui;
  Random::Init(kernel, L);
+
+ std::string tryb;
+ if (Dane::numer_symulacji_)
+   tryb = "a";
+ else tryb = "w";
+ 
+  Dane::stats_ = fopen("Statystyki_1.txt", tryb.c_str());
+  fprintf(Dane::stats_, "%%Kernel: %d   L: %f \n x%d=[", kernel, L,Dane::numer_symulacji_);
+  fclose(Dane::stats_);
+
+  Dane::stats_ = fopen("Statystyki_2.txt", tryb.c_str());
+  fprintf(Dane::stats_, "Kernel: %d   L: %f \n", kernel, L);
+  fclose(Dane::stats_);
+ 
+
 }
 
 bool Model::Powtorzyc()
 {
- bool restart;
+ bool restart = 1;
  std::cout << "\nPonowic Symulacje: '1'\n";
  std::cout << "Wyjdz: '0'\n";
  std::cout << "Wybierasz:  ";

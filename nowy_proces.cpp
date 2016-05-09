@@ -16,5 +16,4 @@ void NowyProces::Wykonaj()
  fprintf(Dane::do_pliku_,"Zdarzenie Nowy Proces... Wykonano! \n");
  fprintf(Dane::do_pliku_, "Nastepny proces zaplanowano o czasie: %f\n\n", czas_ + Dane::czas_symulacji_);
 
- Dane::alive_procs_++;
 }

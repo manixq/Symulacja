@@ -50,9 +50,7 @@ public:
  static double calk_czas_odpowiedzi_;
  static int ilosc_odpowiedzi_;
 
- //liczba AKTUALNIE OBECNYCH procesow w systemie
- //pomaga ustalic stacjonarnosc systemu
- static int alive_procs_;
+ 
  static int numer_symulacji_;
  static FILE* do_pliku_;
  static FILE* stats_;

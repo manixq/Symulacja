@@ -1,7 +1,8 @@
-#define _CRT_SECURE_NO_WARNINGS
+
 #include  "dane.h"
 #include "system_komputerowy.h"
 #include "fstream"
+#include "stdio.h"
 
 FILE* Dane::do_pliku_ = nullptr;
 FILE* Dane::stats_ = nullptr;
@@ -15,7 +16,6 @@ double Dane::L_ = 0.0;
 int Dane::calk_liczba_procesow_ = 0;
 int Dane::ilosc_odpowiedzi_ = 0;
 int Dane::ilosc_oczek_na_procesor_ = 0;
-int Dane::alive_procs_ = 0;
 int Dane::kernel_ = 0;
 int Dane::numer_symulacji_ = 0;
 
@@ -87,7 +87,8 @@ void Dane::Parametry(bool gui)
   fprintf(do_pliku_,"Sredni czas odpowiedzi(czas miedzy zgloszeniem zadania dostepu do IO, a jego otrzymaniem): %f\n", ilosc_odpowiedzi_ ? calk_czas_odpowiedzi_ / ilosc_odpowiedzi_ : 0);
 
   //statystyki do innego pliku dla wygody obliczen
-   fprintf(stats_,"%f ", (ilosc_oczek_na_procesor_) ? calk_czas_oczek_na_procesor_ / ilosc_oczek_na_procesor_ : 0);
+   
+   fprintf(stats_,"%f ", (ilosc_oczek_na_procesor_) ? calk_czas_oczek_na_procesor_ / ilosc_oczek_na_procesor_ : 0);   
 }
  
 
@@ -95,6 +96,13 @@ void Dane::Parametry(bool gui)
 
 void Dane::Reset()
 {
+ fprintf(stats_, "];\n");
+ 
+
+ /*stats_ = fopen("Statystyki_2.txt", "a");
+ fprintf(stats_, "Czas sredni: %f,  Czas MAX: %f \n", (ilosc_oczek_na_procesor_) ? calk_czas_oczek_na_procesor_ / ilosc_oczek_na_procesor_ : 0, max_czas_oczek_);
+ fclose(stats_);*/
+
  max_czas_oczek_ = 0.0;
  czas_symulacji_ = 0.0;
  czas_pracy_procesora_[0] = 0.0;
@@ -107,6 +115,5 @@ void Dane::Reset()
  ilosc_odpowiedzi_ = 0;
  ilosc_oczek_na_procesor_ = 0;
  kernel_ = 0;
- alive_procs_ = 0;
  numer_symulacji_++;
 }

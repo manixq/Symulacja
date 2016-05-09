@@ -21,5 +21,4 @@ void WykonczProces::Wykonaj(int i)
  fprintf(Dane::do_pliku_, "Zwolniono Procesor nr: %d\n",i);
  fprintf(Dane::do_pliku_, "Permanentnie usunieto Proces z systemu\n\n");
 
- Dane::alive_procs_--;
 }

@@ -51,7 +51,6 @@ KolejkaPrio::~KolejkaPrio()
  Pole* ptr = lista_;
  while(ptr)
  {
-  delete ptr->proces_;
   ptr = ptr->nastepne_;
   delete lista_;
   lista_ = ptr;
@@ -99,14 +98,6 @@ void SJF::DodajProces(Proces* proces)
 
 SJF::~SJF()
 {
- Pole* ptr = lista_;
- while (ptr)
- {
-  delete ptr->proces_;
-  ptr = ptr->nastepne_;
-  delete lista_;
-  lista_ = ptr;
- }
 }
 
 int SJF::Wielkosc()

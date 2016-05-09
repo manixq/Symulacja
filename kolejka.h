@@ -69,7 +69,7 @@ public:
 class Kolejka : public SJF
 {
 public:
- virtual ~Kolejka();
+ ~Kolejka();
  void DodajProces(Proces* proces);
  int Wielkosc();
  Proces* WezProces(int x);
