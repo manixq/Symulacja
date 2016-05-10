@@ -21,6 +21,11 @@ public:
  static void Parametry(bool gui);
  static void Reset();
 
+ static bool stacjonarnosc_;
+
+ //czas trwania pomiaru
+ static double czas_pomiarow_;
+
  //calkowity czas symulacji
  static double czas_symulacji_;
 

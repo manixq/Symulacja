@@ -41,6 +41,7 @@ Model::~Model()
 
 void Model::Wykonaj()
 {
+ int ite = 0;
  bool flaga = true;
  for (;;)
  {
@@ -95,12 +96,26 @@ void Model::Wykonaj()
   if (gui)
    Dane::GUI(p, io_, moj_system);
   Dane::Parametry(gui);
-  if (!iteracje) {
+  if (ite >= 10000 && !(Dane::stacjonarnosc_))
+  {
+   Dane::stacjonarnosc_ = 1;
+   Dane::czas_pomiarow_ = 0.0;
+   Dane::max_czas_oczek_ = 0.0;
+   Dane::czas_pracy_procesora_[0] = 0.0;
+   Dane::czas_pracy_procesora_[1] = 0.0;
+   Dane::calk_czas_przetwarzania_ = 0.0;
+   Dane::calk_czas_oczek_na_procesor_ = 0.0;
+   Dane::calk_czas_odpowiedzi_ = 0.0;
+   Dane::calk_liczba_procesow_ = 0;
+   Dane::ilosc_odpowiedzi_ = 0;
+   Dane::ilosc_oczek_na_procesor_ = 0;
+  }
+  if (ite >= iteracje) {
    fprintf(Dane::do_pliku_, "            ---Koniec---\n");
    break;
   }
   Aktualizuj();
-  iteracje--;
+  ite++;
  }
 }
 
@@ -111,32 +126,19 @@ void Model::Menu()
  std::cout << "\n\nPodaj kernel (np. 1271): ";
  std::cin >> kernel;
  fprintf(Dane::do_pliku_, "Kernel: %d\n", kernel);
- std::cout << "Podaj intensywnosc L (np. 0.072): ";
+ std::cout << "Podaj intensywnosc L (np. 0.073): ";
  std::cin >> L;
  fprintf(Dane::do_pliku_, "L: %f\n", L);
  std::cout << "Podaj ilosc iteracji (np. 1000): ";
  std::cin >> iteracje;
  fprintf(Dane::do_pliku_, "Liczba iteracji: %d\n",iteracje);
+ std::cout << "\nPominac faze przejsciowa:\n tak - 0\n nie - 1\n";
+ std::cin >> Dane::stacjonarnosc_;
  std::cout << "\nSymulacja Natychmiastowa: Wprowadz '0'\n";
  std::cout << "Symulacja Krok po kroku: Wprowadz '1'\n";
  std::cout << "Wybierasz:  ";
  std::cin >> gui;
  Random::Init(kernel, L);
-
- std::string tryb;
- if (Dane::numer_symulacji_)
-   tryb = "a";
- else tryb = "w";
- 
-  Dane::stats_ = fopen("Statystyki_1.txt", tryb.c_str());
-  fprintf(Dane::stats_, "%%Kernel: %d   L: %f \n x%d=[", kernel, L,Dane::numer_symulacji_);
-  fclose(Dane::stats_);
-
-  Dane::stats_ = fopen("Statystyki_2.txt", tryb.c_str());
-  fprintf(Dane::stats_, "Kernel: %d   L: %f \n", kernel, L);
-  fclose(Dane::stats_);
- 
-
 }
 
 bool Model::Powtorzyc()
@@ -165,4 +167,5 @@ void Model::Aktualizuj()
 
  tmin = tmin - Dane::czas_symulacji_;
  Dane::czas_symulacji_ += tmin;
+ Dane::czas_pomiarow_ += tmin;
 }

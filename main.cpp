@@ -12,8 +12,7 @@ int main()
   Dane::do_pliku_ = fopen(Dane::ZmienNazwe().c_str(), "w");
   restart = false;
   Model model_symulacji;
-  model_symulacji.Menu(); 
-  Dane::stats_ = fopen("Statystyki_1.txt", "a");
+  model_symulacji.Menu();
   model_symulacji.Wykonaj();
   restart = model_symulacji.Powtorzyc();
   fclose(Dane::do_pliku_);

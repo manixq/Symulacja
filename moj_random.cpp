@@ -31,6 +31,14 @@ void Random :: Init(int64_t kernel, double L)
  Dane::L_ = L;
  kernel_ = kernel;
  L_ = L;
+
+ std::string tryb;
+ if (Dane::numer_symulacji_)
+  tryb = "a";
+ else tryb = "w";
+
+ Dane::stats_ = fopen("Statystyki.txt", tryb.c_str());
+ fprintf(Dane::stats_, "\nKernel: %d   L: %f \n Sredni czas oczekiwania na procesor w kolejnych iteracjach: ", static_cast<int>(kernel), L);
 }
 
 
