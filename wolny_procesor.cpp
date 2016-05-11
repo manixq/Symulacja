@@ -45,29 +45,33 @@ void WolnyProcesor::Wykonaj(int i)
    sys_->KolejkaK()[1]->UsunProces(0);
    procesory_[i]->Przydziel(proces);
   }
+  Aktualizuj(proces,i);
+}
 
-  fprintf(Dane::do_pliku_, "Przydzielono proces do procesora nr: %d\n",i);
-  int tpw = proces->get_tpw();
-  if (tpw == 0)
-  {
-   tpw = Random::Normal(1, 50);
-   proces->set_tpw(tpw);
-  }
-  int tpio = Random::Normal(0, tpw - 1);
-  if (tpio != 0)
-  {
-   proces->set_tpw(tpw - tpio);
-   prosba_dostepu_io_->czas_[i] = Dane::czas_symulacji_ + tpio;   
-   fprintf(Dane::do_pliku_, "Zaplanowano zdarzenie ProsbaDostepuIO o czasie: %f \n\n", prosba_dostepu_io_->czas_[i]);
-  }
-  else
-  {
-   wykoncz_proces_->czas_[i] = Dane::czas_symulacji_ + tpw;
-   fprintf(Dane::do_pliku_, "Zaplanowano zdarzenie WykonczProces o czasie: %f\n\n", wykoncz_proces_->czas_[i]);
-  }
-  if (Dane::max_czas_oczek_ < Dane::czas_symulacji_ - proces->get_czas_czekania())
-   Dane::max_czas_oczek_ = Dane::czas_symulacji_ - proces->get_czas_czekania();
-  Dane::calk_czas_oczek_na_procesor_ += Dane::czas_symulacji_ - proces->get_czas_czekania();
-  Dane::ilosc_oczek_na_procesor_++;
-  proces->set_czas_czekania(Dane::czas_symulacji_);
+void WolnyProcesor::Aktualizuj(Proces* proces, int i)
+{
+ fprintf(Dane::do_pliku_, "Przydzielono proces do procesora nr: %d\n", i);
+ int tpw = proces->get_tpw();
+ if (tpw == 0)
+ {
+  tpw = Random::Normal(1, 50);
+  proces->set_tpw(tpw);
+ }
+ int tpio = Random::Normal(0, tpw - 1);
+ if (tpio != 0)
+ {
+  proces->set_tpw(tpw - tpio);
+  prosba_dostepu_io_->czas_[i] = Dane::czas_symulacji_ + tpio;
+  fprintf(Dane::do_pliku_, "Zaplanowano zdarzenie ProsbaDostepuIO o czasie: %f \n\n", prosba_dostepu_io_->czas_[i]);
+ }
+ else
+ {
+  wykoncz_proces_->czas_[i] = Dane::czas_symulacji_ + tpw;
+  fprintf(Dane::do_pliku_, "Zaplanowano zdarzenie WykonczProces o czasie: %f\n\n", wykoncz_proces_->czas_[i]);
+ }
+ if (Dane::max_czas_oczek_ < Dane::czas_symulacji_ - proces->get_czas_czekania())
+  Dane::max_czas_oczek_ = Dane::czas_symulacji_ - proces->get_czas_czekania();
+ Dane::calk_czas_oczek_na_procesor_ += Dane::czas_symulacji_ - proces->get_czas_czekania();
+ Dane::ilosc_oczek_na_procesor_++;
+ proces->set_czas_czekania(Dane::czas_symulacji_);
 }

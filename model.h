@@ -21,27 +21,43 @@ public:
  //rozpoczynamy symulacje
  void Wykonaj();
  void Menu();
+
+ bool ZdarzenieNowyProces();
+ bool ZdarzenieProsbaDostepuIO();
+ bool ZdarzenieZakonczenieObslugiIO();
+ bool ZdarzenieWykonczProces();
+ bool ZdarzenieWolnyProcesor();
+ bool ZdarzenieGotoweUrzadzenie();
+
+ void Ustawienia(int ite);
  bool Powtorzyc();
+ bool Koniec(int ite);
 
  //aktualizujemy czasy i priorytety
  //w razie niepowodzenia zwracamy false i konczymy symulacje
  void Aktualizuj();
 private:
  double czas_;
- int iteracje;
+ int iteracje_;
+
+ //liczba procesorow
+ const int k_p_;
+
+ //liczba io
+ const int k_io_;
 
  //gui oznacza tryb krokowy
- int gui;
+ int gui_;
 
  IO* io_[5];
- SystemKomputerowy* moj_system;
- Procesor* p[2];
+ SystemKomputerowy* moj_system_;
+ Procesor* p_[2];
 
- NowyProces* nowy_proces_event;
- ProsbaDostepuIO* prosba_dostepu_io_event;
- ZakonczenieObslugiIO* zakonczenie_obslugi_io_event;
- WykonczProces* wykoncz_proces_event;
- WolnyProcesor* wolny_procesor_event;
- DostepDoIO* dostep_do_io;
+ NowyProces* nowy_proces_event_;
+ ProsbaDostepuIO* prosba_dostepu_io_event_;
+ ZakonczenieObslugiIO* zakonczenie_obslugi_io_event_;
+ WykonczProces* wykoncz_proces_event_;
+ WolnyProcesor* wolny_procesor_event_;
+ DostepDoIO* dostep_do_io_;
 };
 #endif

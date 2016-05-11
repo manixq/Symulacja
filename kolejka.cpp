@@ -4,8 +4,13 @@
 
 Kolejka::~Kolejka()
 {
- for (int i = 0; i < lista_.size(); i++)
-  delete lista_[i];
+ Proces* proces;
+ while(lista_.size() != 0)
+ {
+  proces = lista_.back();
+  lista_.pop_back();
+  delete proces;
+ }
 }
 
 void Kolejka::DodajProces(Proces* proces)
@@ -40,21 +45,25 @@ Pole::~Pole()
 {
  if(proces_)
   delete proces_;
+ proces_ = nullptr;
 }
 
 Pole::Pole(Proces* proces): proces_(proces), nastepne_(nullptr) {}
 
-KolejkaPrio::KolejkaPrio():lista_(new Pole()),i(0){}
+KolejkaPrio::KolejkaPrio():i(0), lista_(new Pole()){}
 
 KolejkaPrio::~KolejkaPrio()
 {
  Pole* ptr = lista_;
  while(ptr)
  {
+  if (ptr->proces_)
+   delete ptr->proces_;
   ptr = ptr->nastepne_;
   delete lista_;
   lista_ = ptr;
  }
+ lista_ = nullptr;
 }
 
 void KolejkaPrio::DodajProces(Proces* proces)
@@ -98,7 +107,16 @@ void SJF::DodajProces(Proces* proces)
 
 SJF::~SJF()
 {
+ Pole* ptr = lista_;
+ while (ptr)
+ {
+  ptr = ptr->nastepne_;
+  delete lista_;
+  lista_ = ptr;
+ }
+ lista_ = nullptr;
 }
+
 
 int SJF::Wielkosc()
 {

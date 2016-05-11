@@ -11,13 +11,13 @@ int main()
  while (restart) {
   Dane::do_pliku_ = fopen(Dane::ZmienNazwe().c_str(), "w");
   restart = false;
-  Model model_symulacji;
-  model_symulacji.Menu();
-  model_symulacji.Wykonaj();
-  restart = model_symulacji.Powtorzyc();
-  fclose(Dane::do_pliku_);
+  Model* model_symulacji = new Model();
+  model_symulacji->Menu();
+  model_symulacji->Wykonaj();
+  restart = model_symulacji->Powtorzyc();
   Dane::Reset();
-
+  delete model_symulacji;
+  fclose(Dane::do_pliku_);
   fclose(Dane::stats_);
  }
  Random::Test();

@@ -1,6 +1,7 @@
 #ifndef SYMULACJA_WOLNY_PROCESOR_H_
 #define SYMULACJA_WOLNY_PROCESOR_H_
 
+class Proces;
 class WykonczProces;
 class ProsbaDostepuIO;
 class Procesor;
@@ -22,6 +23,10 @@ public:
  //kolejki z ktorych bierzemy procesy sa dobrane losowo
  //jako argument i podajemy numer procesora
  void Wykonaj(int i);
+
+ //aktualizuje dane
+ //jest czescia wywolania funkcji void Wykonaj(int i)
+ void Aktualizuj(Proces* proces, int i);
 private:
  SystemKomputerowy* sys_;
  Procesor** procesory_;

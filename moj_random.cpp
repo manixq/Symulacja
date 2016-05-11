@@ -39,6 +39,7 @@ void Random :: Init(int64_t kernel, double L)
 
  Dane::stats_ = fopen("Statystyki.txt", tryb.c_str());
  fprintf(Dane::stats_, "\nKernel: %d   L: %f \n Sredni czas oczekiwania na procesor w kolejnych iteracjach: ", static_cast<int>(kernel), L);
+
 }
 
 
