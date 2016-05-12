@@ -79,7 +79,7 @@ void Dane::Parametry(bool gui)
   printf("Sredni czas odpowiedzi(czas miedzy zgloszeniem zadania dostepu do IO, a jego otrzymaniem): %f\n", ilosc_odpowiedzi_ ? calk_czas_odpowiedzi_ / ilosc_odpowiedzi_ : 0);
   printf("\n--------------------------------------------------------------------\n");
  }
-  fprintf(Dane::do_pliku_, "\n--------------------------------------------------------------------\n");
+  fprintf(do_pliku_, "\n--------------------------------------------------------------------\n");
   fprintf(do_pliku_, "Maksymalny czas oczekiwania na procesor: %f\n", max_czas_oczek_);
   fprintf(do_pliku_,"Sredni czas oczekiwania na procesor: %f\n", (ilosc_oczek_na_procesor_) ? calk_czas_oczek_na_procesor_ / ilosc_oczek_na_procesor_ : 0);
   for (int i = 0; i < 2; i++)
@@ -98,7 +98,7 @@ void Dane::Parametry(bool gui)
 
 void Dane::Reset()
 {
-
+ 
  fprintf(stats_, "\nMaksymalny czas oczekiwania na procesor: %f\n", max_czas_oczek_);
  fprintf(stats_, "Sredni czas oczekiwania na procesor: %f\n", (ilosc_oczek_na_procesor_) ? calk_czas_oczek_na_procesor_ / ilosc_oczek_na_procesor_ : 0);
  for (int i = 0; i < 2; i++)
@@ -122,4 +122,188 @@ void Dane::Reset()
  ilosc_oczek_na_procesor_ = 0;
  kernel_ = 0;
  numer_symulacji_++;
+}
+
+void Dane::ZapiszDoPliku(char buffer[])
+{
+ fprintf(do_pliku_, buffer);
+}
+void Dane::ZapiszDoStatystyk(char buffer[])
+{
+ fprintf(stats_, buffer);
+}
+
+void Dane::Ustawienia()
+{
+  stacjonarnosc_ = 1;
+  czas_pomiarow_ = 0.0;
+  max_czas_oczek_ = 0.0;
+  czas_pracy_procesora_[0] = 0.0;
+  czas_pracy_procesora_[1] = 0.0;
+  calk_czas_przetwarzania_ = 0.0;
+  calk_czas_oczek_na_procesor_ = 0.0;
+  calk_czas_odpowiedzi_ = 0.0;
+  calk_liczba_procesow_ = 0;
+  ilosc_odpowiedzi_ = 0;
+  ilosc_oczek_na_procesor_ = 0;
+}
+
+void Dane::SetStacjonarnosc(bool stat)
+{
+ stacjonarnosc_ = stat;
+}
+
+void Dane::SetCzasPomiarow(double czas)
+{
+ czas_pomiarow_ = czas;
+}
+
+void Dane::SetCzasSymulacji(double czas)
+{
+ czas_symulacji_ = czas;
+}
+
+void Dane::SetCzasPracyProcesora(int i, double czas)
+{
+ czas_pracy_procesora_[i] = czas;
+}
+
+void Dane::SetCalkLiczbaProcesow(int i)
+{
+ calk_liczba_procesow_ = i;
+}
+
+void Dane::SetCalkCzasPrzetwarzania(double czas)
+{
+ calk_czas_przetwarzania_ = czas;
+}
+
+void Dane::SetCalkCzasOczek(double czas)
+{
+ calk_czas_oczek_na_procesor_ = czas;
+}
+
+void Dane::SetIloscOczekiwan(int i)
+{
+ ilosc_oczek_na_procesor_ = i;
+}
+
+void Dane::SetMaxCzasOczek(double czas)
+{
+ max_czas_oczek_ = czas;
+}
+
+void Dane::SetKernel(int x)
+{
+ kernel_ = x;
+}
+
+void Dane::SetL(double L)
+{
+ L_ = L;
+}
+
+void Dane::SetCalkCzasOdpowiedz(double czas)
+{
+ calk_czas_odpowiedzi_ = czas;
+}
+
+void Dane::SetIloscOdpowiedzi(int i)
+{
+ ilosc_odpowiedzi_ = i;
+}
+
+void Dane::SetNumerSymulacji(int n)
+{
+ numer_symulacji_ = n;
+}
+
+void Dane::SetDoPliku(FILE* plik)
+{
+ do_pliku_ = plik;
+}
+
+void Dane::SetStats(FILE* plik)
+{
+ stats_ = plik;
+}
+
+bool Dane::GetStacjonarnosc()
+{
+ return stacjonarnosc_;
+}
+
+double Dane::GetCzasPomiarow()
+{
+ return czas_pomiarow_;
+}
+
+double Dane::GetCzasSymulacji()
+{
+ return czas_symulacji_;
+}
+
+double Dane::GetCzasPracyProcesora(int i)
+{
+ return czas_pracy_procesora_[i];
+}
+
+int Dane::GetCalkLiczbaProcesow()
+{
+ return calk_liczba_procesow_;
+}
+
+double Dane::GetCalkCzasPrzetwarzania()
+{
+ return calk_czas_przetwarzania_;
+}
+
+double Dane::GetCalkCzasOczek()
+{
+ return calk_czas_oczek_na_procesor_;
+}
+
+int Dane::GetIloscOczekiwan()
+{
+ return ilosc_oczek_na_procesor_;
+}
+
+double Dane::GetMaxCzasOczek()
+{
+ return max_czas_oczek_;
+}
+
+int Dane::GetKernel()
+{
+ return kernel_;
+}
+
+double Dane::GetL()
+{
+ return L_;
+}
+
+double Dane::GetCalkCzasOdpowiedz()
+{
+ return calk_czas_odpowiedzi_;
+}
+
+int Dane::GetIloscOdpowiedzi()
+{
+ return ilosc_odpowiedzi_;
+}
+
+int Dane::GetNumerSymulacji()
+{
+ return numer_symulacji_;
+}
+
+FILE* Dane::GetStats()
+{
+ return stats_;
+}
+
+FILE* Dane::GetDoPliku()
+{
+ return do_pliku_;
 }

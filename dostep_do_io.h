@@ -12,7 +12,7 @@ class DostepDoIO
 {
 public:
  DostepDoIO(IO** io, ZakonczenieObslugiIO* zakonczenie_obslugi_io);
-
+ void Wypisz(int i);
  //przydziela proces z kolejki na czas TPO
 //proces przydzielany zgodnie z priorytetem
 //ktory jest uaktualniony przed przydzialem

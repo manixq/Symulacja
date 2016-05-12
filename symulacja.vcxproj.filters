@@ -36,9 +36,6 @@
     <ClInclude Include="system_komputerowy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="moj_random.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="zakonczenie_obslugi_io.h">
       <Filter>Header Files\zdarzenia</Filter>
     </ClInclude>
@@ -63,6 +60,9 @@
     <ClInclude Include="dane.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="random.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="io.cpp">
@@ -81,9 +81,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="system_komputerowy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="moj_random.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="nowy_proces.cpp">
@@ -108,6 +105,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="dane.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="random.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

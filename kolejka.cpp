@@ -1,6 +1,6 @@
 #include "kolejka.h"
 #include "dane.h"
-#include "moj_random.h"
+#include "random.h"
 
 Kolejka::~Kolejka()
 {
@@ -149,7 +149,7 @@ void KolejkaPrio::Uaktualnij()
  while(ptr->nastepne_)
  {
   tpo = ptr->nastepne_->proces_->get_tpo();
-  to = Dane::czas_symulacji_ - ptr->nastepne_->proces_->get_czas_czekania();
+  to = Dane::GetCzasSymulacji() - ptr->nastepne_->proces_->get_czas_czekania();
   ptr->nastepne_->proces_->set_priorytet(to - tpo);
   ptr = ptr->nastepne_;
  }

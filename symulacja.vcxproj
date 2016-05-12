@@ -24,7 +24,7 @@
     <ClInclude Include="io.h" />
     <ClInclude Include="kolejka.h" />
     <ClInclude Include="model.h" />
-    <ClInclude Include="moj_random.h" />
+    <ClInclude Include="random.h" />
     <ClInclude Include="nowy_proces.h" />
     <ClInclude Include="proces.h" />
     <ClInclude Include="procesor.h" />
@@ -41,7 +41,7 @@
     <ClCompile Include="kolejka.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="model.cpp" />
-    <ClCompile Include="moj_random.cpp" />
+    <ClCompile Include="random.cpp" />
     <ClCompile Include="nowy_proces.cpp" />
     <ClCompile Include="proces.cpp" />
     <ClCompile Include="procesor.cpp" />

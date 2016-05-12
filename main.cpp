@@ -1,5 +1,5 @@
 #include "model.h"
-#include "moj_random.h"
+#include "random.h"
 #include "dane.h"
 #include <iostream>
 #include <string>
@@ -9,7 +9,9 @@ int main()
 {
  bool restart = true;
  while (restart) {
-  Dane::do_pliku_ = fopen(Dane::ZmienNazwe().c_str(), "w");
+  FILE* do_pliku;
+  do_pliku = fopen(Dane::ZmienNazwe().c_str(), "w");
+  Dane::SetDoPliku(do_pliku);
   restart = false;
   Model* model_symulacji = new Model();
   model_symulacji->Menu();
@@ -17,8 +19,8 @@ int main()
   restart = model_symulacji->Powtorzyc();
   Dane::Reset();
   delete model_symulacji;
-  fclose(Dane::do_pliku_);
-  fclose(Dane::stats_);
+  fclose(do_pliku);
+  fclose(Dane::GetStats());
  }
  Random::Test();
  std::system("Pause");

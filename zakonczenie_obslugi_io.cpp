@@ -13,10 +13,10 @@ ZakonczenieObslugiIO::ZakonczenieObslugiIO(IO** io, SystemKomputerowy* sys)
 void ZakonczenieObslugiIO::Wykonaj(int i)
 {
    czas_[i] = -1;
-   io_[i]->WezProces()->set_czas_czekania(Dane::czas_symulacji_);
+   io_[i]->WezProces()->set_czas_czekania(Dane::GetCzasSymulacji());
    sys_->KolejkaK()[1]->DodajProces(io_[i]->WezProces());
    io_[i]->UsunProces();
-   fprintf(Dane::do_pliku_, "Zdarzenie ZakonczenieObslugiIO... Wykonano! \n");
-   fprintf(Dane::do_pliku_, "Zwolniono urzadzenie I/O nr: %d\n\n",i);
+   fprintf(Dane::GetDoPliku(), "Zdarzenie ZakonczenieObslugiIO... Wykonano! \n");
+   fprintf(Dane::GetDoPliku(), "Zwolniono urzadzenie I/O nr: %d\n\n",i);
  
 }

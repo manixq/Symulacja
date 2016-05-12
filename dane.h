@@ -9,7 +9,6 @@ class SystemKomputerowy;
 class Dane
 {
 public:
-
  //wypisuje w konsoli stan systemu krok po kroku
  static void GUI(Procesor** procesory, IO** io, SystemKomputerowy* sys);
 
@@ -21,6 +20,50 @@ public:
  static void Parametry(bool gui);
  static void Reset();
 
+ //funkcje do zapisu danych dla roznych plikow
+ static void ZapiszDoPliku(char buffer[]);
+ static void ZapiszDoStatystyk(char buffer[]);
+ static void Ustawienia();
+
+ //funkcje get||set bo enkapsulacja
+ static void SetStacjonarnosc(bool stat);
+ static void SetCzasPomiarow(double czas);
+ static void SetCzasSymulacji(double czas);
+ //SetCzasPracyProcesora(numer procesora, czas);
+ static void SetCzasPracyProcesora(int i,double czas);
+ static void SetCalkLiczbaProcesow(int i);
+ static void SetCalkCzasPrzetwarzania(double czas);
+ static void SetCalkCzasOczek(double czas);
+ static void SetIloscOczekiwan(int i);
+ static void SetMaxCzasOczek(double czas);
+ static void SetKernel(int x);
+ static void SetL(double L);
+ static void SetCalkCzasOdpowiedz(double czas);
+ static void SetIloscOdpowiedzi(int i);
+ static void SetNumerSymulacji(int n);
+
+ static void SetDoPliku(FILE* plik);
+ static void SetStats(FILE* plik);
+
+ static bool GetStacjonarnosc();
+ static double GetCzasPomiarow();
+ static double GetCzasSymulacji();
+ //GetCzasPracyProcesora(numer procesora);
+ static double GetCzasPracyProcesora(int i);
+ static int GetCalkLiczbaProcesow();
+ static double GetCalkCzasPrzetwarzania();
+ static double GetCalkCzasOczek();
+ static int GetIloscOczekiwan();
+ static double GetMaxCzasOczek();
+ static int GetKernel();
+ static double GetL();
+ static double GetCalkCzasOdpowiedz();
+ static int GetIloscOdpowiedzi();
+ static int GetNumerSymulacji();
+
+ static FILE* GetStats();
+ static FILE* GetDoPliku();
+private:
  static bool stacjonarnosc_;
 
  //czas trwania pomiaru
@@ -44,7 +87,6 @@ public:
  static int ilosc_oczek_na_procesor_;
  static double max_czas_oczek_;
 
-
  //parametry generatora
  static int kernel_;
  static double L_;
@@ -54,10 +96,13 @@ public:
  //oraz counter
  static double calk_czas_odpowiedzi_;
  static int ilosc_odpowiedzi_;
-
  
  static int numer_symulacji_;
+
+ //plik do zapisywania danych - step by step
  static FILE* do_pliku_;
+
+ //plik do koncowych statystyk
  static FILE* stats_;
 };
 #endif

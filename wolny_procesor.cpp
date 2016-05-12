@@ -1,7 +1,7 @@
 #include "wolny_procesor.h"
 #include "system_komputerowy.h"
 #include "dane.h"
-#include "moj_random.h"
+#include "random.h"
 #include "prosba_dostepu_io.h"
 #include "wykoncz_proces.h"
 
@@ -15,8 +15,8 @@ WolnyProcesor::WolnyProcesor(SystemKomputerowy* sys, Procesor** procesory, Prosb
 
 void WolnyProcesor::Wykonaj(int i)
 {
- fprintf(Dane::do_pliku_,"Zdarzenie WolnyProcesor... Wykonano!\n");
- fprintf(Dane::do_pliku_, "Wolny Procesor o numerze: %d\n",i);
+ fprintf(Dane::GetDoPliku(),"Zdarzenie WolnyProcesor... Wykonano!\n");
+ fprintf(Dane::GetDoPliku(), "Wolny Procesor o numerze: %d\n",i);
  int x = 0;
  int num = 0;
  Proces* proces;
@@ -50,7 +50,7 @@ void WolnyProcesor::Wykonaj(int i)
 
 void WolnyProcesor::Aktualizuj(Proces* proces, int i)
 {
- fprintf(Dane::do_pliku_, "Przydzielono proces do procesora nr: %d\n", i);
+ fprintf(Dane::GetDoPliku(), "Przydzielono proces do procesora nr: %d\n", i);
  int tpw = proces->get_tpw();
  if (tpw == 0)
  {
@@ -61,17 +61,17 @@ void WolnyProcesor::Aktualizuj(Proces* proces, int i)
  if (tpio != 0)
  {
   proces->set_tpw(tpw - tpio);
-  prosba_dostepu_io_->czas_[i] = Dane::czas_symulacji_ + tpio;
-  fprintf(Dane::do_pliku_, "Zaplanowano zdarzenie ProsbaDostepuIO o czasie: %f \n\n", prosba_dostepu_io_->czas_[i]);
+  prosba_dostepu_io_->czas_[i] = Dane::GetCzasSymulacji() + tpio;
+  fprintf(Dane::GetDoPliku(), "Zaplanowano zdarzenie ProsbaDostepuIO o czasie: %f \n\n", prosba_dostepu_io_->czas_[i]);
  }
  else
  {
-  wykoncz_proces_->czas_[i] = Dane::czas_symulacji_ + tpw;
-  fprintf(Dane::do_pliku_, "Zaplanowano zdarzenie WykonczProces o czasie: %f\n\n", wykoncz_proces_->czas_[i]);
+  wykoncz_proces_->czas_[i] = Dane::GetCzasSymulacji() + tpw;
+  fprintf(Dane::GetDoPliku(), "Zaplanowano zdarzenie WykonczProces o czasie: %f\n\n", wykoncz_proces_->czas_[i]);
  }
- if (Dane::max_czas_oczek_ < Dane::czas_symulacji_ - proces->get_czas_czekania())
-  Dane::max_czas_oczek_ = Dane::czas_symulacji_ - proces->get_czas_czekania();
- Dane::calk_czas_oczek_na_procesor_ += Dane::czas_symulacji_ - proces->get_czas_czekania();
- Dane::ilosc_oczek_na_procesor_++;
- proces->set_czas_czekania(Dane::czas_symulacji_);
+ if (Dane::GetMaxCzasOczek() < Dane::GetCzasSymulacji() - proces->get_czas_czekania())
+  Dane::SetMaxCzasOczek(Dane::GetCzasSymulacji() - proces->get_czas_czekania());
+ Dane::SetCalkCzasOczek(Dane::GetCzasSymulacji() - proces->get_czas_czekania() + Dane::GetCalkCzasOczek());
+ Dane::SetIloscOczekiwan(Dane::GetIloscOczekiwan()+1);
+ proces->set_czas_czekania(Dane::GetCzasSymulacji());
 }

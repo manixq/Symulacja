@@ -13,12 +13,12 @@ void WykonczProces::Wykonaj(int i)
 {
  czas_[i] = -1;
  Proces* proces = p_[i]->Zwolnij();
- Dane::czas_pracy_procesora_[i] += Dane::czas_symulacji_ - proces->get_czas_czekania();
- Dane::calk_czas_przetwarzania_ += Dane::czas_symulacji_ - proces->get_wiek();
- Dane::calk_liczba_procesow_++;
+ Dane::SetCzasPracyProcesora(i, Dane::GetCzasSymulacji() - proces->get_czas_czekania() + Dane::GetCzasPracyProcesora(i));
+ Dane::SetCalkCzasPrzetwarzania(Dane::GetCzasSymulacji() - proces->get_wiek() + Dane::GetCalkCzasPrzetwarzania());
+ Dane::SetCalkLiczbaProcesow(Dane::GetCalkLiczbaProcesow() + 1);
  delete proces; 
- fprintf(Dane::do_pliku_,"Zdarzenie WykonczProces... Wykonano! \n");
- fprintf(Dane::do_pliku_, "Zwolniono Procesor nr: %d\n",i);
- fprintf(Dane::do_pliku_, "Permanentnie usunieto Proces z systemu\n\n");
+ fprintf(Dane::GetDoPliku(),"Zdarzenie WykonczProces... Wykonano! \n");
+ fprintf(Dane::GetDoPliku(), "Zwolniono Procesor nr: %d\n",i);
+ fprintf(Dane::GetDoPliku(), "Permanentnie usunieto Proces z systemu\n\n");
 
 }

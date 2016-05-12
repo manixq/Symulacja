@@ -1,7 +1,7 @@
 #include  "prosba_dostepu_io.h"
 #include "procesor.h"
 #include "dane.h"
-#include "moj_random.h"
+#include "random.h"
 #include "io.h"
 
 ProsbaDostepuIO::ProsbaDostepuIO(Procesor** procesory, IO** ios)
@@ -15,7 +15,7 @@ void ProsbaDostepuIO::Wykonaj(int num)
  int i;
  i = Random::Normal(0, 4);
  Proces* proces = procesory_[num]->Zwolnij();
- Dane::czas_pracy_procesora_[num] += Dane::czas_symulacji_ - proces->get_czas_czekania();
+ Dane::SetCzasPracyProcesora(num, Dane::GetCzasSymulacji() - proces->get_czas_czekania() + Dane::GetCzasPracyProcesora(num));
 
  int tpo = Random::Normal(1, 10);
  proces->set_tpo(tpo);
@@ -23,10 +23,10 @@ void ProsbaDostepuIO::Wykonaj(int num)
 
  //TO jako czas symulacji
  //by wyliczyc czas pobytu w kolejce: czas_symulacji(w momencie opuszczenia kolejki) - TO
- proces->set_czas_czekania(Dane::czas_symulacji_);
+ proces->set_czas_czekania(Dane::GetCzasSymulacji());
  ios_[i]->DodajKolejka(proces);
 
- fprintf(Dane::do_pliku_,"Zdarzenie Prosba Dostepu do IO... Wykonano! \n");
- fprintf(Dane::do_pliku_, "Zwolniono Procesor nr: %d\n", num);
- fprintf(Dane::do_pliku_, "Dodano Proces do Kolejki urzadzenia nr: %d\n\n",i);
+ fprintf(Dane::GetDoPliku(),"Zdarzenie Prosba Dostepu do IO... Wykonano! \n");
+ fprintf(Dane::GetDoPliku(), "Zwolniono Procesor nr: %d\n", num);
+ fprintf(Dane::GetDoPliku(), "Dodano Proces do Kolejki urzadzenia nr: %d\n\n",i);
 }
