@@ -10,6 +10,7 @@ Model::Model()
    iteracje_(60000),
    k_p_(2),
    k_io_(5),
+   k_epsilon_(0.00001),
    gui_(0)
 {
  for (int i = 0; i < k_io_; i++)
@@ -74,7 +75,11 @@ void Model::Wykonaj()
    if (ZdarzenieGotoweUrzadzenie())
     flaga = true;
   }
+
+  //tu zmienilem w petli uwaga
   Ustawienia(ite);
+
+  //tu tez zmienialem, dobrze sprwadzic
   if (Koniec(ite))
    break;
   Aktualizuj();
@@ -109,7 +114,7 @@ void Model::Menu()
 
 bool Model::ZdarzenieNowyProces()
 {
- if (abs(nowy_proces_event_->czas_ - Dane::GetCzasSymulacji()) < 0.00001)
+ if (abs(nowy_proces_event_->czas_ - Dane::GetCzasSymulacji()) <= k_epsilon_)
  {
   nowy_proces_event_->Wykonaj();
   return true;
@@ -121,7 +126,7 @@ bool Model::ZdarzenieProsbaDostepuIO()
 {
  bool wykonano = false;
  for (int i = 0; i < k_p_; i++)
-  if (abs(prosba_dostepu_io_event_->czas_[i] - Dane::GetCzasSymulacji()) < 0.00001)
+  if (abs(prosba_dostepu_io_event_->czas_[i] - Dane::GetCzasSymulacji()) <= k_epsilon_)
   {
    prosba_dostepu_io_event_->Wykonaj(i);
    wykonano =  true;
@@ -133,7 +138,7 @@ bool Model::ZdarzenieZakonczenieObslugiIO()
 {
  bool wykonano = false;
  for (int i = 0; i < k_io_; i++)
-  if (abs(zakonczenie_obslugi_io_event_->czas_[i] - Dane::GetCzasSymulacji()) < 0.00001)
+  if (abs(zakonczenie_obslugi_io_event_->czas_[i] - Dane::GetCzasSymulacji()) <= k_epsilon_)
   {
    zakonczenie_obslugi_io_event_->Wykonaj(i);
    wykonano = true;
@@ -145,10 +150,13 @@ bool Model::ZdarzenieWykonczProces()
 {
  bool wykonano = false;
  for (int i = 0; i < k_p_; i++)
-  if (abs(wykoncz_proces_event_->czas_[i] - Dane::GetCzasSymulacji()) < 0.00001)
+  if (abs(wykoncz_proces_event_->czas_[i] - Dane::GetCzasSymulacji()) <= k_epsilon_)
   {
    wykoncz_proces_event_->Wykonaj(i);
    wykonano = true;
+
+   if (Dane::GetStacjonarnosc() && Dane::GetCalkLiczbaProcesow() <= iteracje_)
+    fprintf(Dane::GetStats(), "%f ", (Dane::GetCalkLiczbaProcesow()) ? Dane::GetCalkCzasOczek() / Dane::GetCalkLiczbaProcesow() : 0);
   }
  return wykonano;
 }
@@ -184,7 +192,7 @@ void Model::Ustawienia(int ite)
  if (gui_)
   Dane::GUI(p_, io_, moj_system_);
  Dane::Parametry(gui_);
- if (ite >= 10000 && !(Dane::GetStacjonarnosc()))
+ if (Dane::GetCalkLiczbaProcesow() >= 10000 && !(Dane::GetStacjonarnosc()))//zbieranie statystyk od momentu uzyskania stacjonarnosci
  {
   Dane::Ustawienia();
  }
@@ -202,7 +210,7 @@ bool Model::Powtorzyc()
 
 bool Model::Koniec(int ite)
 {
- if (ite >= iteracje_) {
+ if (Dane::GetCalkLiczbaProcesow() >= iteracje_) {
   fprintf(Dane::GetDoPliku(), "            ---Koniec---\n");
   return true;
  }
@@ -212,13 +220,13 @@ bool Model::Koniec(int ite)
 void Model::Aktualizuj()
 {
   double tmin = nowy_proces_event_->czas_;
- for (int i = 0; i < 2; i++)
+ for (int i = 0; i < k_p_; i++)
   if (prosba_dostepu_io_event_->czas_[i] >= 0 && prosba_dostepu_io_event_->czas_[i] < tmin)
    tmin = prosba_dostepu_io_event_->czas_[i];
- for (int i = 0; i < 5; i++)
+ for (int i = 0; i < k_io_; i++)
   if (zakonczenie_obslugi_io_event_->czas_[i] >= 0 && zakonczenie_obslugi_io_event_->czas_[i] < tmin)
    tmin = zakonczenie_obslugi_io_event_->czas_[i];
- for (int i = 0; i < 2; i++)
+ for (int i = 0; i < k_p_; i++)
   if (wykoncz_proces_event_->czas_[i] >= 0 && wykoncz_proces_event_->czas_[i] < tmin)
    tmin = wykoncz_proces_event_->czas_[i];
 

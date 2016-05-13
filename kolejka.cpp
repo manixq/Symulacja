@@ -57,8 +57,6 @@ KolejkaPrio::~KolejkaPrio()
  Pole* ptr = lista_;
  while(ptr)
  {
-  if (ptr->proces_)
-   delete ptr->proces_;
   ptr = ptr->nastepne_;
   delete lista_;
   lista_ = ptr;
@@ -149,7 +147,7 @@ void KolejkaPrio::Uaktualnij()
  while(ptr->nastepne_)
  {
   tpo = ptr->nastepne_->proces_->get_tpo();
-  to = Dane::GetCzasSymulacji() - ptr->nastepne_->proces_->get_czas_czekania();
+  to = Dane::GetCzasSymulacji() - ptr->nastepne_->proces_->get_czas_czekania_io();
   ptr->nastepne_->proces_->set_priorytet(to - tpo);
   ptr = ptr->nastepne_;
  }

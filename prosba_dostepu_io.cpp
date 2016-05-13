@@ -15,15 +15,14 @@ void ProsbaDostepuIO::Wykonaj(int num)
  int i;
  i = Random::Normal(0, 4);
  Proces* proces = procesory_[num]->Zwolnij();
- Dane::SetCzasPracyProcesora(num, Dane::GetCzasSymulacji() - proces->get_czas_czekania() + Dane::GetCzasPracyProcesora(num));
+ Dane::SetCzasPracyProcesora(num, Dane::GetCzasSymulacji() - proces->get_czas_dostepu_proc() + Dane::GetCzasPracyProcesora(num));
 
  int tpo = Random::Normal(1, 10);
  proces->set_tpo(tpo);
  proces->set_priorytet(-tpo);
 
- //TO jako czas symulacji
  //by wyliczyc czas pobytu w kolejce: czas_symulacji(w momencie opuszczenia kolejki) - TO
- proces->set_czas_czekania(Dane::GetCzasSymulacji());
+ proces->set_czas_czekania_io(Dane::GetCzasSymulacji());
  ios_[i]->DodajKolejka(proces);
 
  fprintf(Dane::GetDoPliku(),"Zdarzenie Prosba Dostepu do IO... Wykonano! \n");

@@ -10,8 +10,7 @@ DostepDoIO::DostepDoIO(IO** io, ZakonczenieObslugiIO* zakonczenie_obslugi_io)
 {
 }
 
-void DostepDoIO::Wypisz(int i)
-{
+void DostepDoIO::Wypisz(int i){
  char buffer[255];
  Dane::ZapiszDoPliku("Zdarzenie DostepDoIO... Wykonano!\n");
  sprintf(buffer, "Wolne urzadzenie o numerze: %d\n", i);
@@ -22,11 +21,12 @@ void DostepDoIO::Wypisz(int i)
  Dane::ZapiszDoPliku(buffer);
 }
 
-void DostepDoIO::Wykonaj(int i)
-{
+void DostepDoIO::Wykonaj(int i){
  io_[i]->PrzydzielKolejka();
- Dane::SetCalkCzasOdpowiedz(Dane::GetCalkCzasOdpowiedz() + Dane::GetCzasSymulacji() - io_[i]->WezProces()->get_czas_czekania());
+
+ Dane::SetCalkCzasOdpowiedz(Dane::GetCalkCzasOdpowiedz() + Dane::GetCzasSymulacji() - io_[i]->WezProces()->get_czas_czekania_io());
  Dane::SetIloscOdpowiedzi(1 + Dane::GetIloscOdpowiedzi());
+
  int tpo = io_[i]->WezProces()->get_tpo();
  zakonczenie_obslugi_io_->czas_[i] = Dane::GetCzasSymulacji() + tpo;
  Wypisz(i);

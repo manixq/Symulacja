@@ -14,12 +14,16 @@ public:
  double get_wiek();
  double get_czas_zgloszen();
  double get_czas_czekania();
+ double get_czas_czekania_io();
+ double get_czas_dostepu_proc();
  void set_tpo(int x);
  void set_tpw(int x);
  void set_priorytet(double x);
  void set_wiek(double x);
  void set_czas_zgloszen(double x);
+ void set_czas_czekania_io(double x);
  void set_czas_czekania(double x);
+ void set_czas_dostepu_proc(double x);
 private:
  //czas dostepu do procesora zadany przez proces
  int tpw_;
@@ -35,8 +39,14 @@ private:
  //czas zgloszenia zadania dostepu
  double czas_zgloszen_;
 
- //czas czekania w kolejce,
- // uzywane takze jako czas uzyskania dostepu do procesora
+ //czas uzyskania dostepu do procesora
+ double czas_dostepu_proc_;
+
+ //czas czekania w kolejce procesora
  double czas_czekania_;
+
+
+ //czas czekania w kolejce io
+ double czas_czekania_io_;
 };
 #endif//SYMULACJA_PROCES_H_

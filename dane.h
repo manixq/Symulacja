@@ -23,6 +23,8 @@ public:
  //funkcje do zapisu danych dla roznych plikow
  static void ZapiszDoPliku(char buffer[]);
  static void ZapiszDoStatystyk(char buffer[]);
+
+ //zeruje statystyki i rozpoczoczyna ich zbior
  static void Ustawienia();
 
  //funkcje get||set bo enkapsulacja
@@ -34,7 +36,6 @@ public:
  static void SetCalkLiczbaProcesow(int i);
  static void SetCalkCzasPrzetwarzania(double czas);
  static void SetCalkCzasOczek(double czas);
- static void SetIloscOczekiwan(int i);
  static void SetMaxCzasOczek(double czas);
  static void SetKernel(int x);
  static void SetL(double L);
@@ -53,10 +54,7 @@ public:
  static int GetCalkLiczbaProcesow();
  static double GetCalkCzasPrzetwarzania();
  static double GetCalkCzasOczek();
- static int GetIloscOczekiwan();
  static double GetMaxCzasOczek();
- static int GetKernel();
- static double GetL();
  static double GetCalkCzasOdpowiedz();
  static int GetIloscOdpowiedzi();
  static int GetNumerSymulacji();
@@ -84,7 +82,6 @@ private:
 
  //suma czasu oczekiwania na procesor przez procesy oraz counter
  static double calk_czas_oczek_na_procesor_;
- static int ilosc_oczek_na_procesor_;
  static double max_czas_oczek_;
 
  //parametry generatora

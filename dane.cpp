@@ -16,7 +16,6 @@ double Dane::calk_czas_odpowiedzi_ = 0.0;
 double Dane::L_ = 0.0;
 int Dane::calk_liczba_procesow_ = 0;
 int Dane::ilosc_odpowiedzi_ = 0;
-int Dane::ilosc_oczek_na_procesor_ = 0;
 int Dane::kernel_ = 0;
 int Dane::numer_symulacji_ = 0;
 bool Dane::stacjonarnosc_ = true;
@@ -71,7 +70,7 @@ void Dane::Parametry(bool gui)
  if (gui)
  {
   printf("Maksymalny czas oczekiwania na procesor: %f\n",max_czas_oczek_);
-  printf("Sredni czas oczekiwania na procesor: %f\n", (ilosc_oczek_na_procesor_) ? calk_czas_oczek_na_procesor_ / ilosc_oczek_na_procesor_ : 0);
+  printf("Sredni czas oczekiwania na procesor: %f\n", (calk_liczba_procesow_) ? calk_czas_oczek_na_procesor_ / calk_liczba_procesow_ : 0);
   for (int i = 0; i < 2; i++)
    printf("Wykorzystanie procesora nr %d wynosi: %f %%\n", i, czas_symulacji_ ? czas_pracy_procesora_[i] / czas_symulacji_ * 100 : 0);
   printf("Przepustowosc systemu mierzona liczba procesow zakonczonych w jednostce czasu: %f\n",czas_symulacji_ ? calk_liczba_procesow_ / czas_symulacji_ : 0);
@@ -81,16 +80,13 @@ void Dane::Parametry(bool gui)
  }
   fprintf(do_pliku_, "\n--------------------------------------------------------------------\n");
   fprintf(do_pliku_, "Maksymalny czas oczekiwania na procesor: %f\n", max_czas_oczek_);
-  fprintf(do_pliku_,"Sredni czas oczekiwania na procesor: %f\n", (ilosc_oczek_na_procesor_) ? calk_czas_oczek_na_procesor_ / ilosc_oczek_na_procesor_ : 0);
+  fprintf(do_pliku_,"Sredni czas oczekiwania na procesor: %f\n", (calk_liczba_procesow_) ? calk_czas_oczek_na_procesor_ / calk_liczba_procesow_: 0);
   for (int i = 0; i < 2; i++)
    fprintf(do_pliku_,"Wykorzystanie procesora nr %d wynosi: %f %%\n", i, czas_pomiarow_ ? czas_pracy_procesora_[i] / czas_pomiarow_ * 100 : 0);
   fprintf(do_pliku_,"Przepustowosc systemu mierzona liczba procesow zakonczonych w jednostce czasu: %f\n", czas_pomiarow_ ? calk_liczba_procesow_ / czas_pomiarow_ : 0);
   fprintf(do_pliku_,"Sredni czas przetwarzania(czas miedzy zgloszeniem procesu do systemu a jego zakonczeniem): %f\n", (calk_liczba_procesow_) ? calk_czas_przetwarzania_ / calk_liczba_procesow_ : 0);
   fprintf(do_pliku_,"Sredni czas odpowiedzi(czas miedzy zgloszeniem zadania dostepu do IO, a jego otrzymaniem): %f\n", ilosc_odpowiedzi_ ? calk_czas_odpowiedzi_ / ilosc_odpowiedzi_ : 0);
-  if(stacjonarnosc_)
-  //statystyki do innego pliku dla wygody odczytu
-   fprintf(stats_,"%f ", (ilosc_oczek_na_procesor_) ? calk_czas_oczek_na_procesor_ / ilosc_oczek_na_procesor_ : 0);  
-
+  
 }
  
 
@@ -100,7 +96,7 @@ void Dane::Reset()
 {
  
  fprintf(stats_, "\nMaksymalny czas oczekiwania na procesor: %f\n", max_czas_oczek_);
- fprintf(stats_, "Sredni czas oczekiwania na procesor: %f\n", (ilosc_oczek_na_procesor_) ? calk_czas_oczek_na_procesor_ / ilosc_oczek_na_procesor_ : 0);
+ fprintf(stats_, "Sredni czas oczekiwania na procesor: %f\n", (calk_liczba_procesow_) ? calk_czas_oczek_na_procesor_ / calk_liczba_procesow_ : 0);
  for (int i = 0; i < 2; i++)
   fprintf(stats_, "Wykorzystanie procesora nr %d wynosi: %f %%\n", i, czas_pomiarow_ ? czas_pracy_procesora_[i] / czas_pomiarow_ * 100 : 0);
  fprintf(stats_, "Przepustowosc systemu mierzona liczba procesow zakonczonych w jednostce czasu: %f\n", czas_pomiarow_ ? calk_liczba_procesow_ / czas_pomiarow_ : 0);
@@ -119,7 +115,6 @@ void Dane::Reset()
  L_ = 0.0;
  calk_liczba_procesow_ = 0;
  ilosc_odpowiedzi_ = 0;
- ilosc_oczek_na_procesor_ = 0;
  kernel_ = 0;
  numer_symulacji_++;
 }
@@ -143,9 +138,8 @@ void Dane::Ustawienia()
   calk_czas_przetwarzania_ = 0.0;
   calk_czas_oczek_na_procesor_ = 0.0;
   calk_czas_odpowiedzi_ = 0.0;
-  calk_liczba_procesow_ = 0;
+ // calk_liczba_procesow_ = 0;
   ilosc_odpowiedzi_ = 0;
-  ilosc_oczek_na_procesor_ = 0;
 }
 
 void Dane::SetStacjonarnosc(bool stat)
@@ -183,10 +177,6 @@ void Dane::SetCalkCzasOczek(double czas)
  calk_czas_oczek_na_procesor_ = czas;
 }
 
-void Dane::SetIloscOczekiwan(int i)
-{
- ilosc_oczek_na_procesor_ = i;
-}
 
 void Dane::SetMaxCzasOczek(double czas)
 {
@@ -263,25 +253,12 @@ double Dane::GetCalkCzasOczek()
  return calk_czas_oczek_na_procesor_;
 }
 
-int Dane::GetIloscOczekiwan()
-{
- return ilosc_oczek_na_procesor_;
-}
 
 double Dane::GetMaxCzasOczek()
 {
  return max_czas_oczek_;
 }
 
-int Dane::GetKernel()
-{
- return kernel_;
-}
-
-double Dane::GetL()
-{
- return L_;
-}
 
 double Dane::GetCalkCzasOdpowiedz()
 {

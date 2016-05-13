@@ -15,7 +15,7 @@ WolnyProcesor::WolnyProcesor(SystemKomputerowy* sys, Procesor** procesory, Prosb
 
 void WolnyProcesor::Wykonaj(int i)
 {
- fprintf(Dane::GetDoPliku(),"Zdarzenie WolnyProcesor... Wykonano!\n");
+ fprintf(Dane::GetDoPliku(), "Zdarzenie WolnyProcesor... Wykonano!\n");
  fprintf(Dane::GetDoPliku(), "Wolny Procesor o numerze: %d\n",i);
  int x = 0;
  int num = 0;
@@ -69,9 +69,6 @@ void WolnyProcesor::Aktualizuj(Proces* proces, int i)
   wykoncz_proces_->czas_[i] = Dane::GetCzasSymulacji() + tpw;
   fprintf(Dane::GetDoPliku(), "Zaplanowano zdarzenie WykonczProces o czasie: %f\n\n", wykoncz_proces_->czas_[i]);
  }
- if (Dane::GetMaxCzasOczek() < Dane::GetCzasSymulacji() - proces->get_czas_czekania())
-  Dane::SetMaxCzasOczek(Dane::GetCzasSymulacji() - proces->get_czas_czekania());
- Dane::SetCalkCzasOczek(Dane::GetCzasSymulacji() - proces->get_czas_czekania() + Dane::GetCalkCzasOczek());
- Dane::SetIloscOczekiwan(Dane::GetIloscOczekiwan()+1);
- proces->set_czas_czekania(Dane::GetCzasSymulacji());
+ proces->set_czas_czekania(Dane::GetCzasSymulacji() - proces->get_czas_czekania());
+ proces->set_czas_dostepu_proc(Dane::GetCzasSymulacji());
 }

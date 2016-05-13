@@ -41,6 +41,17 @@ double Proces::get_czas_czekania()
 {
  return czas_czekania_;
 }
+
+double Proces::get_czas_czekania_io()
+{
+ return czas_czekania_io_;
+}
+
+double Proces::get_czas_dostepu_proc()
+{
+ return czas_dostepu_proc_;
+}
+
 void Proces::set_tpo(int x)
 {
  tpo_ = x;
@@ -69,4 +80,14 @@ void Proces::set_czas_czekania(double x)
 void Proces::set_czas_zgloszen(double x)
 {
  czas_zgloszen_ = x;
+}
+
+void Proces::set_czas_czekania_io(double x)
+{
+ czas_czekania_io_ = x;
+}
+
+void Proces::set_czas_dostepu_proc(double x)
+{
+ czas_dostepu_proc_ = x;
 }

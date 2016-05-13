@@ -29,6 +29,8 @@ public:
  bool ZdarzenieWolnyProcesor();
  bool ZdarzenieGotoweUrzadzenie();
 
+ //decyduje ot rybie graficznym
+ //decyduje o momencie rozpoczecia liczenia statystyk
  void Ustawienia(int ite);
  bool Powtorzyc();
  bool Koniec(int ite);
@@ -45,6 +47,8 @@ private:
 
  //liczba io
  const int k_io_;
+
+ const int k_epsilon_;
 
  //gui oznacza tryb krokowy
  int gui_;
