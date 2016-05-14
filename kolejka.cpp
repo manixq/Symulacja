@@ -90,7 +90,7 @@ void SJF::DodajProces(Proces* proces)
   if (proces->get_tpw() < lista_->nastepne_->proces_->get_tpw())
    if (abs(proces->get_tpw() - lista_->nastepne_->proces_->get_tpw()) < 0.000001 )
    {
-    int x = Random::Normal(0, 1);
+    int x = Random::Normal(0, 1,0);
     if (x)
      break;
    }

@@ -17,7 +17,7 @@ public:
 //proces przydzielany zgodnie z priorytetem
 //ktory jest uaktualniony przed przydzialem
  //jako argument i podajemy numer urzadzenia io
- void Wykonaj(int i);
+ void Wykonaj(int i, int iteracje);
 private:
  IO** io_;
  ZakonczenieObslugiIO* zakonczenie_obslugi_io_;

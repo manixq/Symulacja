@@ -24,9 +24,9 @@ void WolnyProcesor::Wykonaj(int i)
  //Od kolejki zalezy wybor algorytmu za pomoca ktorego przydziele proces
   if (!sys_->KolejkaK()[0]->Pusta() && !sys_->KolejkaK()[1]->Pusta())
   {
-   num = Random::Normal(0, 1);
+         num = Random::Normal(0, 1, 3);
    x = sys_->KolejkaK()[num]->Wielkosc();
-   x = Random::Normal(0, x - 1);
+   x = Random::Normal(0, x - 1, 5);
    proces = sys_->KolejkaK()[num]->WezProces(x);
    sys_->KolejkaK()[num]->UsunProces(x);
    procesory_[i]->Przydziel(proces);
@@ -34,7 +34,7 @@ void WolnyProcesor::Wykonaj(int i)
   else if(!sys_->KolejkaK()[0]->Pusta())
   {
    x = sys_->KolejkaK()[0]->Wielkosc();
-   x = Random::Normal(0, x - 1);
+   x = Random::Normal(0, x - 1,5);
    proces = sys_->KolejkaK()[0]->WezProces(x);
    sys_->KolejkaK()[0]->UsunProces(x);
    procesory_[i]->Przydziel(proces);
@@ -54,10 +54,10 @@ void WolnyProcesor::Aktualizuj(Proces* proces, int i)
  int tpw = proces->get_tpw();
  if (tpw == 0)
  {
-  tpw = Random::Normal(1, 50);
+  tpw = Random::Normal(1, 50, 6);
   proces->set_tpw(tpw);
  }
- int tpio = Random::Normal(0, tpw - 1);
+ int tpio = Random::Normal(0, tpw - 1, 6);
  if (tpio != 0)
  {
   proces->set_tpw(tpw - tpio);

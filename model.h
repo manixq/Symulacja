@@ -41,6 +41,7 @@ public:
 private:
  double czas_;
  int iteracje_;
+ double czas_konca_;
 
  //liczba procesorow
  const int k_p_;

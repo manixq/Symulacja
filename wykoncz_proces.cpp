@@ -9,18 +9,26 @@ WykonczProces::WykonczProces(Procesor** procesor_)
 {
 }
 
-void WykonczProces::Wykonaj(int i)
+void WykonczProces::Wykonaj(int i, int iteracje, double czas_konca)
 {
  czas_[i] = -1;
  Proces* proces = p_[i]->Zwolnij();
- Dane::SetCzasPracyProcesora(i, Dane::GetCzasSymulacji() - proces->get_czas_dostepu_proc() + Dane::GetCzasPracyProcesora(i));
- Dane::SetCalkCzasPrzetwarzania(Dane::GetCzasSymulacji() - proces->get_wiek() + Dane::GetCalkCzasPrzetwarzania());
+ if (czas_konca > Dane::GetCzasSymulacji())
+ {
+  Dane::SetCzasPracyProcesora(i, Dane::GetCzasSymulacji() - proces->get_czas_dostepu_proc() + Dane::GetCzasPracyProcesora(i));
+  Dane::SetCalkCzasPrzetwarzania(Dane::GetCzasSymulacji() - proces->get_wiek() + Dane::GetCalkCzasPrzetwarzania());
+ }
 
- Dane::SetCalkLiczbaProcesow(Dane::GetCalkLiczbaProcesow() + 1);
+ if (Dane::GetCalkLiczbaProcesow() < iteracje)
+ {
+  Dane::SetCalkLiczbaProcesow(Dane::GetCalkLiczbaProcesow() + 1);
+  if (Dane::GetMaxCzasOczek() < proces->get_czas_czekania())
+   Dane::SetMaxCzasOczek(proces->get_czas_czekania());
+  Dane::SetCalkCzasOczek(proces->get_czas_czekania() + Dane::GetCalkCzasOczek());
+ }
 
- if (Dane::GetMaxCzasOczek() < proces->get_czas_czekania())
-  Dane::SetMaxCzasOczek( proces->get_czas_czekania());
- Dane::SetCalkCzasOczek(proces->get_czas_czekania() + Dane::GetCalkCzasOczek());
+ if (Dane::GetStacjonarnosc() < Dane::GetCalkLiczbaProcesow() && Dane::GetCalkLiczbaProcesow() < iteracje)
+  fprintf(Dane::GetStats(), "%f ", proces->get_czas_czekania());
 
  delete proces; 
  fprintf(Dane::GetDoPliku(),"Zdarzenie WykonczProces... Wykonano! \n");

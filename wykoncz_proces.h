@@ -12,7 +12,7 @@ public:
  
  //bezpowrotnie zwolni proces z systemu
  //jako argument i podajemy numer procesora
- void Wykonaj(int i);
+ void Wykonaj(int i, int iteracje, double czas_konca);
  double czas_[2];
 private:
  Procesor** p_;

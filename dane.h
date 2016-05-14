@@ -28,7 +28,7 @@ public:
  static void Ustawienia();
 
  //funkcje get||set bo enkapsulacja
- static void SetStacjonarnosc(bool stat);
+ static void SetStacjonarnosc(int stat);
  static void SetCzasPomiarow(double czas);
  static void SetCzasSymulacji(double czas);
  //SetCzasPracyProcesora(numer procesora, czas);
@@ -46,7 +46,7 @@ public:
  static void SetDoPliku(FILE* plik);
  static void SetStats(FILE* plik);
 
- static bool GetStacjonarnosc();
+ static int GetStacjonarnosc();
  static double GetCzasPomiarow();
  static double GetCzasSymulacji();
  //GetCzasPracyProcesora(numer procesora);
@@ -61,14 +61,21 @@ public:
 
  static FILE* GetStats();
  static FILE* GetDoPliku();
+
+ static void SetCzasIteracje(double czas, int iteracje);
 private:
- static bool stacjonarnosc_;
+ static int stacjonarnosc_;
+
+ static double przepustowosc_;
+ static double przetwarzanie_;
 
  //czas trwania pomiaru
  static double czas_pomiarow_;
 
  //calkowity czas symulacji
  static double czas_symulacji_;
+
+ static bool wyzeruj_wyniki_;
 
  //czas jaki procesor jest uzywany przez procesy
  static double czas_pracy_procesora_[2];
@@ -87,6 +94,9 @@ private:
  //parametry generatora
  static int kernel_;
  static double L_;
+
+ static int liczba_iteracji_;
+ static double czas_konca_;
 
  //czas miedzy zgloszeniem zadania dostepu do jednego z urzadzen io
  //i jego otrzymaniem (czas spedzony w kolejkach io przez wszystkie procesy)

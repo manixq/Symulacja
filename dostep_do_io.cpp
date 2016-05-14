@@ -21,11 +21,13 @@ void DostepDoIO::Wypisz(int i){
  Dane::ZapiszDoPliku(buffer);
 }
 
-void DostepDoIO::Wykonaj(int i){
+void DostepDoIO::Wykonaj(int i, int iteracje){
  io_[i]->PrzydzielKolejka();
-
- Dane::SetCalkCzasOdpowiedz(Dane::GetCalkCzasOdpowiedz() + Dane::GetCzasSymulacji() - io_[i]->WezProces()->get_czas_czekania_io());
- Dane::SetIloscOdpowiedzi(1 + Dane::GetIloscOdpowiedzi());
+ if (Dane::GetIloscOdpowiedzi() < iteracje)
+ {
+  Dane::SetCalkCzasOdpowiedz(Dane::GetCalkCzasOdpowiedz() + Dane::GetCzasSymulacji() - io_[i]->WezProces()->get_czas_czekania_io());
+  Dane::SetIloscOdpowiedzi(1 + Dane::GetIloscOdpowiedzi());
+ }
 
  int tpo = io_[i]->WezProces()->get_tpo();
  zakonczenie_obslugi_io_->czas_[i] = Dane::GetCzasSymulacji() + tpo;

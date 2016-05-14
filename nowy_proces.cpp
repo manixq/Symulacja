@@ -12,7 +12,7 @@ void NowyProces::Wykonaj()
  proces->set_wiek(Dane::GetCzasSymulacji());
  proces->set_czas_czekania(Dane::GetCzasSymulacji());
  sys_->DodajProces(proces);
- czas_ = Random::Wykladn() + Dane::GetCzasSymulacji();
+ czas_ = Random::Wykladn(4) + Dane::GetCzasSymulacji();
  fprintf(Dane::GetDoPliku(),"Zdarzenie Nowy Proces... Wykonano! \n");
- fprintf(Dane::GetDoPliku(), "Nastepny proces zaplanowano o czasie: %f\n\n", czas_ + Dane::GetCzasSymulacji());
+ fprintf(Dane::GetDoPliku(), "Nastepny proces zaplanowano o czasie: %f\n\n", czas_);
 }

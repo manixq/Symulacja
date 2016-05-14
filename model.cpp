@@ -8,6 +8,7 @@
 Model::Model()
  : czas_(0.0),
    iteracje_(60000),
+   czas_konca_(200000),
    k_p_(2),
    k_io_(5),
    k_epsilon_(0.00001),
@@ -91,19 +92,24 @@ void Model::Menu()
 {
  int kernel = 1123;
  double L = 0.073;
- bool stacjonarnosc;
+ int stacjonarnosc;
  std::cout << "\n\nPodaj kernel (np. 1129): ";
  std::cin >> kernel;
  fprintf(Dane::GetDoPliku(), "Kernel: %d\n", kernel);
  std::cout << "Podaj intensywnosc L (np. 0.073): ";
  std::cin >> L;
  fprintf(Dane::GetDoPliku(), "L: %f\n", L);
- std::cout << "Podaj ilosc iteracji (np. 50 000): ";
+ std::cout << "Podaj ilosc iteracji dla procesow (np. 50 000): ";
  std::cin >> iteracje_;
- fprintf(Dane::GetDoPliku(), "Liczba iteracji: %d\n",iteracje_);
- std::cout << "\nPominac faze przejsciowa:\n tak - 0\n nie - 1\nWybierasz: ";
- std::cin >> stacjonarnosc; Dane::SetStacjonarnosc(stacjonarnosc);
+ std::cout << "Podaj czas symulacji (np. 200 000): ";
+ std::cin >> czas_konca_;
 
+ Dane::SetCzasIteracje(czas_konca_, iteracje_);
+
+ fprintf(Dane::GetDoPliku(), "Liczba iteracji: %d\n",iteracje_);
+ std::cout << "\nLiczba zakonczonych procesow wymagana do rozpoczecia rejetrowania wynikow:\n(0 - od poczatku)\nWybierasz: ";
+ std::cin >> stacjonarnosc; Dane::SetStacjonarnosc(stacjonarnosc);
+ 
  
  std::cout << "\nSymulacja Natychmiastowa: Wprowadz '0'\n";
  std::cout << "Symulacja Krok po kroku: Wprowadz '1'\n";
@@ -128,7 +134,7 @@ bool Model::ZdarzenieProsbaDostepuIO()
  for (int i = 0; i < k_p_; i++)
   if (abs(prosba_dostepu_io_event_->czas_[i] - Dane::GetCzasSymulacji()) <= k_epsilon_)
   {
-   prosba_dostepu_io_event_->Wykonaj(i);
+   prosba_dostepu_io_event_->Wykonaj(i, czas_konca_);
    wykonano =  true;
   }
  return wykonano;
@@ -152,11 +158,10 @@ bool Model::ZdarzenieWykonczProces()
  for (int i = 0; i < k_p_; i++)
   if (abs(wykoncz_proces_event_->czas_[i] - Dane::GetCzasSymulacji()) <= k_epsilon_)
   {
-   wykoncz_proces_event_->Wykonaj(i);
+   wykoncz_proces_event_->Wykonaj(i, iteracje_, czas_konca_);
    wykonano = true;
 
-   if (Dane::GetStacjonarnosc() && Dane::GetCalkLiczbaProcesow() <= iteracje_)
-    fprintf(Dane::GetStats(), "%f ", (Dane::GetCalkLiczbaProcesow()) ? Dane::GetCalkCzasOczek() / Dane::GetCalkLiczbaProcesow() : 0);
+   
   }
  return wykonano;
 }
@@ -180,7 +185,7 @@ bool Model::ZdarzenieGotoweUrzadzenie()
  {
   if (io_[i]->Wolny() && io_[i]->WielkoscKolejki())
   {
-   dostep_do_io_->Wykonaj(i);
+   dostep_do_io_->Wykonaj(i, iteracje_);
    wykonano = true;
   }
  }
@@ -192,10 +197,10 @@ void Model::Ustawienia(int ite)
  if (gui_)
   Dane::GUI(p_, io_, moj_system_);
  Dane::Parametry(gui_);
- if (Dane::GetCalkLiczbaProcesow() >= 10000 && !(Dane::GetStacjonarnosc()))//zbieranie statystyk od momentu uzyskania stacjonarnosci
- {
-  Dane::Ustawienia();
- }
+
+ //ustawienie rejestrowania wynikow
+ Dane::Ustawienia();
+ 
 }
 
 bool Model::Powtorzyc()
@@ -205,12 +210,13 @@ bool Model::Powtorzyc()
  std::cout << "Wyjdz: '0'\n";
  std::cout << "Wybierasz:  ";
  std::cin >> restart;
+ std::cout << "\n--------------------------------------\n";
  return restart;
 }
 
 bool Model::Koniec(int ite)
 {
- if (Dane::GetCalkLiczbaProcesow() >= iteracje_) {
+ if (Dane::GetCalkLiczbaProcesow() >= iteracje_ && Dane::GetCzasSymulacji() >= czas_konca_) {
   fprintf(Dane::GetDoPliku(), "            ---Koniec---\n");
   return true;
  }

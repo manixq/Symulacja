@@ -22,6 +22,5 @@ int main()
   fclose(do_pliku);
   fclose(Dane::GetStats());
  }
- Random::Test();
  std::system("Pause");
 }

@@ -18,7 +18,12 @@ int Dane::calk_liczba_procesow_ = 0;
 int Dane::ilosc_odpowiedzi_ = 0;
 int Dane::kernel_ = 0;
 int Dane::numer_symulacji_ = 0;
-bool Dane::stacjonarnosc_ = true;
+int Dane::stacjonarnosc_ = 0;
+bool Dane::wyzeruj_wyniki_ = true;
+int Dane::liczba_iteracji_ = 0;
+double Dane::czas_konca_ = 0;
+double Dane::przetwarzanie_ = 0;
+double Dane::przepustowosc_ = 0;
 
 void Dane::GUI(Procesor** procesory, IO** io, SystemKomputerowy* sys)
 {
@@ -80,13 +85,13 @@ void Dane::Parametry(bool gui)
  }
   fprintf(do_pliku_, "\n--------------------------------------------------------------------\n");
   fprintf(do_pliku_, "Maksymalny czas oczekiwania na procesor: %f\n", max_czas_oczek_);
-  fprintf(do_pliku_,"Sredni czas oczekiwania na procesor: %f\n", (calk_liczba_procesow_) ? calk_czas_oczek_na_procesor_ / calk_liczba_procesow_: 0);
+  fprintf(do_pliku_,"Sredni czas oczekiwania na procesor: %f\n", (calk_liczba_procesow_) ? calk_czas_oczek_na_procesor_ / calk_liczba_procesow_ : 0);
   for (int i = 0; i < 2; i++)
    fprintf(do_pliku_,"Wykorzystanie procesora nr %d wynosi: %f %%\n", i, czas_pomiarow_ ? czas_pracy_procesora_[i] / czas_pomiarow_ * 100 : 0);
   fprintf(do_pliku_,"Przepustowosc systemu mierzona liczba procesow zakonczonych w jednostce czasu: %f\n", czas_pomiarow_ ? calk_liczba_procesow_ / czas_pomiarow_ : 0);
   fprintf(do_pliku_,"Sredni czas przetwarzania(czas miedzy zgloszeniem procesu do systemu a jego zakonczeniem): %f\n", (calk_liczba_procesow_) ? calk_czas_przetwarzania_ / calk_liczba_procesow_ : 0);
   fprintf(do_pliku_,"Sredni czas odpowiedzi(czas miedzy zgloszeniem zadania dostepu do IO, a jego otrzymaniem): %f\n", ilosc_odpowiedzi_ ? calk_czas_odpowiedzi_ / ilosc_odpowiedzi_ : 0);
-  
+  fprintf(do_pliku_, "czas konca: %f, czas pracy 1: %f\n", czas_konca_, czas_pracy_procesora_[0]);
 }
  
 
@@ -96,11 +101,11 @@ void Dane::Reset()
 {
  
  fprintf(stats_, "\nMaksymalny czas oczekiwania na procesor: %f\n", max_czas_oczek_);
- fprintf(stats_, "Sredni czas oczekiwania na procesor: %f\n", (calk_liczba_procesow_) ? calk_czas_oczek_na_procesor_ / calk_liczba_procesow_ : 0);
+ fprintf(stats_, "Sredni czas oczekiwania na procesor: %f\n", (liczba_iteracji_) ? calk_czas_oczek_na_procesor_ / liczba_iteracji_ : 0);
  for (int i = 0; i < 2; i++)
-  fprintf(stats_, "Wykorzystanie procesora nr %d wynosi: %f %%\n", i, czas_pomiarow_ ? czas_pracy_procesora_[i] / czas_pomiarow_ * 100 : 0);
- fprintf(stats_, "Przepustowosc systemu mierzona liczba procesow zakonczonych w jednostce czasu: %f\n", czas_pomiarow_ ? calk_liczba_procesow_ / czas_pomiarow_ : 0);
- fprintf(stats_, "Sredni czas przetwarzania(czas miedzy zgloszeniem procesu do systemu a jego zakonczeniem): %f\n", (calk_liczba_procesow_) ? calk_czas_przetwarzania_ / calk_liczba_procesow_ : 0);
+  fprintf(stats_, "Wykorzystanie procesora nr %d wynosi: %f %%\n", i, czas_konca_ ? czas_pracy_procesora_[i] / czas_konca_ * 100 : 0);
+ fprintf(stats_, "Przepustowosc systemu mierzona liczba procesow zakonczonych w jednostce czasu: %f\n", przepustowosc_);
+ fprintf(stats_, "Sredni czas przetwarzania(czas miedzy zgloszeniem procesu do systemu a jego zakonczeniem): %f\n", przetwarzanie_);
  fprintf(stats_, "Sredni czas odpowiedzi(czas miedzy zgloszeniem zadania dostepu do IO, a jego otrzymaniem): %f\n", ilosc_odpowiedzi_ ? calk_czas_odpowiedzi_ / ilosc_odpowiedzi_ : 0);
  fprintf(stats_, "\n-------------------------------------\n");
  fclose(stats_);
@@ -117,6 +122,11 @@ void Dane::Reset()
  ilosc_odpowiedzi_ = 0;
  kernel_ = 0;
  numer_symulacji_++;
+
+ stacjonarnosc_ = 0;
+ wyzeruj_wyniki_ = true;
+ przetwarzanie_ = 0;
+ przepustowosc_ = 0;
 }
 
 void Dane::ZapiszDoPliku(char buffer[])
@@ -130,7 +140,9 @@ void Dane::ZapiszDoStatystyk(char buffer[])
 
 void Dane::Ustawienia()
 {
-  stacjonarnosc_ = 1;
+ if (calk_liczba_procesow_ >= stacjonarnosc_ && wyzeruj_wyniki_)
+ { 
+  wyzeruj_wyniki_ = false;
   czas_pomiarow_ = 0.0;
   max_czas_oczek_ = 0.0;
   czas_pracy_procesora_[0] = 0.0;
@@ -138,11 +150,15 @@ void Dane::Ustawienia()
   calk_czas_przetwarzania_ = 0.0;
   calk_czas_oczek_na_procesor_ = 0.0;
   calk_czas_odpowiedzi_ = 0.0;
- // calk_liczba_procesow_ = 0;
-  ilosc_odpowiedzi_ = 0;
+  calk_liczba_procesow_ = 0;
+  przepustowosc_ = 0;
+  przetwarzanie_ = 0;
+  ilosc_odpowiedzi_ = 0; 
+
+ }
 }
 
-void Dane::SetStacjonarnosc(bool stat)
+void Dane::SetStacjonarnosc(int stat)
 {
  stacjonarnosc_ = stat;
 }
@@ -159,6 +175,7 @@ void Dane::SetCzasSymulacji(double czas)
 
 void Dane::SetCzasPracyProcesora(int i, double czas)
 {
+ czas_konca_ = czas_symulacji_;
  czas_pracy_procesora_[i] = czas;
 }
 
@@ -170,10 +187,12 @@ void Dane::SetCalkLiczbaProcesow(int i)
 void Dane::SetCalkCzasPrzetwarzania(double czas)
 {
  calk_czas_przetwarzania_ = czas;
+ przetwarzanie_ = calk_czas_przetwarzania_ /calk_liczba_procesow_;
 }
 
 void Dane::SetCalkCzasOczek(double czas)
 {
+ przepustowosc_ = static_cast<double>(liczba_iteracji_) / czas_pomiarow_;
  calk_czas_oczek_na_procesor_ = czas;
 }
 
@@ -218,7 +237,7 @@ void Dane::SetStats(FILE* plik)
  stats_ = plik;
 }
 
-bool Dane::GetStacjonarnosc()
+int Dane::GetStacjonarnosc()
 {
  return stacjonarnosc_;
 }
@@ -283,4 +302,10 @@ FILE* Dane::GetStats()
 FILE* Dane::GetDoPliku()
 {
  return do_pliku_;
+}
+
+void Dane::SetCzasIteracje(double czas, int iteracje)
+{
+ liczba_iteracji_ = iteracje;
+ czas_konca_ = czas;
 }

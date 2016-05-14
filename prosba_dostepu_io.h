@@ -18,7 +18,7 @@ public:
  //zwalnia procesor
  //umieszcza proces w kolejce urzadzenia
  //jako argument num podajemy numer procesora 
- void Wykonaj(int num);
+ void Wykonaj(int num, int czas_konca);
  double czas_[2];
 private:
  Procesor** procesory_;
