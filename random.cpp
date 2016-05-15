@@ -36,13 +36,13 @@ void Random :: Init(int64_t kernel, double L)
  for (int i = 1; i < 7; i++)
  {
   kernel_[i] = kernel_[i - 1];
-  for (int j = 0; j < 100000; j++)
+  for (int j = 0; j < 200000; j++)
    kernel_[i] = (kernel_[i] * a_) % m_;
  }
- kernel_next_ = kernel_[7];
+ kernel_next_ = kernel_[6];
  L_ = L;
 
- for (int i = 0; i < 100000; i++)
+ for (int i = 0; i < 200000; i++)
   kernel_next_ = (kernel_next_ * a_) % m_;
 
  std::string tryb;
@@ -61,7 +61,7 @@ void Random::Test(int64_t kernel)
  for (int i = 1; i < 7; i++)
  {
   kernel_[i] = kernel_[i - 1];
-  for (int j = 0; j < 100000; j++)
+  for (int j = 0; j < 200000; j++)
    kernel_[i] = (kernel_[i] * a_) % m_;
  }
  L_ = 0.05;
@@ -91,3 +91,7 @@ void Random::Test(int64_t kernel)
  test_ = 0;
 }
 
+int64_t Random::KernelNext()
+{
+ return kernel_next_;
+}

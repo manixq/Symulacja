@@ -1,9 +1,11 @@
+#define __STDC_FORMAT_MACROS
 #include "model.h"
 #include "random.h"
 #include "dane.h"
 #include <iostream>
 #include <stdio.h>
 #include <fstream>
+#include <inttypes.h>
 
 Model::Model()
  : czas_(0.0),
@@ -90,22 +92,38 @@ void Model::Wykonaj()
 
 void Model::Menu()
 {
- int kernel = 1123;
+ int64_t kernel = Random::KernelNext();
  double L = 0.073;
  int stacjonarnosc;
- std::cout << "\n\nPodaj kernel (np. 1129): ";
- std::cin >> kernel;
- fprintf(Dane::GetDoPliku(), "Kernel: %d\n", kernel);
- std::cout << "Podaj intensywnosc L (np. 0.073): ";
- std::cin >> L;
- fprintf(Dane::GetDoPliku(), "L: %f\n", L);
- std::cout << "Podaj ilosc iteracji dla procesow (np. 50 000): ";
- std::cin >> iteracje_;
- std::cout << "Podaj czas symulacji (np. 200 000): ";
- std::cin >> czas_konca_;
+ if(Dane::GetNumerSymulacji() == 0)
+ {
+  std::cout << "\n\nPodaj kernel (np. 1129): ";
+  std::cin >> kernel;
+  fprintf(Dane::GetDoPliku(), "Kernel: %" PRId64 "\n", kernel);
+  std::cout << "Podaj intensywnosc L (np. 0.073): ";
+  std::cin >> L;
+  fprintf(Dane::GetDoPliku(), "L: %f\n", L);
+  std::cout << "Podaj ilosc iteracji dla procesow (np. 50 000): ";
+  std::cin >> iteracje_;
+  std::cout << "Podaj czas symulacji (np. 200 000): ";
+  std::cin >> czas_konca_;
 
- Dane::SetCzasIteracje(czas_konca_, iteracje_);
+  Dane::SetCzasIteracje(czas_konca_, iteracje_);
+ }
+ else {
+  std::cout << "\n\nPodaj kernel (sugerowany " <<kernel<<" ): ";
+  std::cin >> kernel;
+  fprintf(Dane::GetDoPliku(), "Kernel: %" PRId64 "\n", kernel);
+  std::cout << "Podaj intensywnosc L (np. 0.073): ";
+  std::cin >> L;
+  fprintf(Dane::GetDoPliku(), "L: %f\n", L);
+  std::cout << "Podaj ilosc iteracji dla procesow (np. 50 000): ";
+  std::cin >> iteracje_;
+  std::cout << "Podaj czas symulacji (np. 200 000): ";
+  std::cin >> czas_konca_;
 
+  Dane::SetCzasIteracje(czas_konca_, iteracje_);
+ }
  fprintf(Dane::GetDoPliku(), "Liczba iteracji: %d\n",iteracje_);
  std::cout << "\nLiczba zakonczonych procesow wymagana do rozpoczecia rejetrowania wynikow:\n(0 - od poczatku)\nWybierasz: ";
  std::cin >> stacjonarnosc; Dane::SetStacjonarnosc(stacjonarnosc);

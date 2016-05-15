@@ -25,7 +25,7 @@ public:
 
  //testowanie generatorów
  static void Test(int64_t kernel);
-
+ static int64_t KernelNext();
 
 private:
  //jadro generatora, seed
