@@ -133,10 +133,6 @@ void Dane::ZapiszDoPliku(char buffer[])
 {
  fprintf(do_pliku_, buffer);
 }
-void Dane::ZapiszDoStatystyk(char buffer[])
-{
- fprintf(stats_, buffer);
-}
 
 void Dane::Ustawienia()
 {

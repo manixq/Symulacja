@@ -6,6 +6,8 @@ class Procesor;
 class IO;
 class SystemKomputerowy;
 
+//Klasa sluzaca do zbierania wynikow i wypisywania niektorych komunikator
+//klasa wykonuje niektore obliczenia by ulatwic prezentacje wynikow
 class Dane
 {
 public:
@@ -22,12 +24,11 @@ public:
 
  //funkcje do zapisu danych dla roznych plikow
  static void ZapiszDoPliku(char buffer[]);
- static void ZapiszDoStatystyk(char buffer[]);
 
  //zeruje statystyki i rozpoczoczyna ich zbior
  static void Ustawienia();
 
- //funkcje get||set bo enkapsulacja
+ //funkcje get||set by zachowac enkapsulacje
  static void SetStacjonarnosc(int stat);
  static void SetCzasPomiarow(double czas);
  static void SetCzasSymulacji(double czas);

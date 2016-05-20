@@ -10,6 +10,8 @@
 #include "prosba_dostepu_io.h"
 #include <fstream>
 
+
+//glowna petla symulacyjna i obsluga zdarzen
 class Model
 {
 public:
